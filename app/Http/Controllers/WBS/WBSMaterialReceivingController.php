@@ -146,9 +146,9 @@ class WBSMaterialReceivingController extends Controller
                     'total_amt' => $mr_data->total_amt,
                     'status' => 'Open',
                     'created_by' => Auth::user()->user_id,
-                    'created_date' => date("m/d/Y h:i A"),
+                    'created_date' => date("m/d/Y H:i A"),
                     'updated_by' => Auth::user()->user_id,
-                    'updated_date' => date("m/d/Y h:i A")
+                    'updated_date' => date("m/d/Y H:i A")
                 ];
 
                 $details = $this->getDetails($mr_data->invoice_no);
@@ -189,10 +189,10 @@ class WBSMaterialReceivingController extends Controller
                 'total_amt' => $this->number_unformat($mrdata->total_amt),
                 'status' => $mrdata->status,
                 'create_user' => Auth::user()->user_id,
-                'create_pg' => date('Y-m-d h:i:s a'),
-                'created_at' =>  date('Y-m-d h:i:s a'),
-                'update_pg' => date('Y-m-d h:i:s a'),
-                'updated_at' =>  date('Y-m-d h:i:s a')
+                'create_pg' => date('Y-m-d H:i:s a'),
+                'created_at' =>  date('Y-m-d H:i:s a'),
+                'update_pg' => date('Y-m-d H:i:s a'),
+                'updated_at' =>  date('Y-m-d H:i:s a')
 
             ]);
 
@@ -208,9 +208,9 @@ class WBSMaterialReceivingController extends Controller
                     'unit_price' => $details->price,
                     'amount' => $details->amount,
                     'create_user' => Auth::user()->user_id,
-                    'created_at' =>  date('Y-m-d h:i:s a'),
+                    'created_at' =>  date('Y-m-d H:i:s a'),
                     'update_user' => Auth::user()->user_id,
-                    'updated_at' => date('Y-m-d h:i:s a')
+                    'updated_at' => date('Y-m-d H:i:s a')
                 ]);
             }
 
@@ -225,9 +225,9 @@ class WBSMaterialReceivingController extends Controller
                     'not_for_iqc' => (in_array($item, (array)$notForIQC))? 1: 0,
                     'for_kitting' => (in_array($item, (array)$notForIQC))? 1: 0,
                     'create_user' => Auth::user()->user_id,
-                    'created_at' =>  date('Y-m-d h:i:s a'),
+                    'created_at' =>  date('Y-m-d H:i:s a'),
                     'update_user' => Auth::user()->user_id,
-                    'updated_at' => date('Y-m-d h:i:s a')
+                    'updated_at' => date('Y-m-d H:i:s a')
                 ]);
             }
 
@@ -249,9 +249,9 @@ class WBSMaterialReceivingController extends Controller
                 ->where('receive_no',$mrdata->receive_no)
                 ->update([
                 'receive_date' => $this->formatDate($mrdata->receive_date, 'Y-m-d'),
-                'update_pg' => date('Y-m-d h:i:s a'),
+                'update_pg' => date('Y-m-d H:i:s a'),
                 'update_user' => Auth::user()->user_id,
-                'updated_at' => date('Y-m-d h:i:s a')
+                'updated_at' => date('Y-m-d H:i:s a')
             ]);
 
             // summary
@@ -273,7 +273,7 @@ class WBSMaterialReceivingController extends Controller
                                 'not_for_iqc' => $checkiqc,
                                 'for_kitting' => $checkiqc,
                                 'update_user' => Auth::user()->user_id,
-                                'updated_at' => date('Y-m-d h:i:s a')
+                                'updated_at' => date('Y-m-d H:i:s a')
                             ]);
 
 
@@ -287,7 +287,7 @@ class WBSMaterialReceivingController extends Controller
                         //         'for_kitting' => $checkiqc,
                         //         'iqc_status' => $iqcstatus,
                         //         'update_user' => Auth::user()->user_id,
-                        //         'updated_at' => date('Y-m-d h:i:s a')
+                        //         'updated_at' => date('Y-m-d H:i:s a')
                         //     ]);
 
                         // DB::connection($this->mysql)->table('tbl_wbs_inventory')
@@ -298,7 +298,7 @@ class WBSMaterialReceivingController extends Controller
                         //         'for_kitting' => $checkiqc,
                         //         'iqc_status' => $iqcstatus,
                         //         'update_user' => Auth::user()->user_id,
-                        //         'updated_at' => date('Y-m-d h:i:s a')
+                        //         'updated_at' => date('Y-m-d H:i:s a')
                         //     ]);
                     }
                 }
@@ -320,7 +320,7 @@ class WBSMaterialReceivingController extends Controller
                                 'not_for_iqc' => $checkiqc,
                                 'for_kitting' => $checkiqc,
                                 'update_user' => Auth::user()->user_id,
-                                'updated_at' => date('Y-m-d h:i:s a')
+                                'updated_at' => date('Y-m-d H:i:s a')
                             ]);
                     }
                 }
@@ -340,7 +340,7 @@ class WBSMaterialReceivingController extends Controller
                                 'supplier' => strtoupper($batchdata->supplier[$key]),
                                 'exp_date' => ($batchdata->exp_date[$key] == '')? 'N/A': $this->convertExpDate($batchdata->exp_date[$key]),
                                 'update_user' => Auth::user()->user_id,
-                                'updated_at' => date('Y-m-d h:i:s a')
+                                'updated_at' => date('Y-m-d H:i:s a')
                             ]);
 
                         DB::connection($this->mysql)->table('tbl_wbs_inventory')
@@ -353,7 +353,7 @@ class WBSMaterialReceivingController extends Controller
                                 'supplier' => strtoupper($batchdata->supplier[$key]),
                                 'exp_date' => ($batchdata->exp_date[$key] == '')? 'N/A': $this->convertExpDate($batchdata->exp_date[$key]),
                                 'update_user' => Auth::user()->user_id,
-                                'updated_at' => date('Y-m-d h:i:s a')
+                                'updated_at' => date('Y-m-d H:i:s a')
                             ]);
 
                         $this->UpdateCalculateQty($mrdata->receive_no,$item,str_replace(',','',$batchdata->qty[$key]));
@@ -393,9 +393,9 @@ class WBSMaterialReceivingController extends Controller
                                             'iqc_result' => '',
                                             'received_date' => $mrdata->receive_date,
                                             'create_user' => Auth::user()->user_id,
-                                            'created_at' =>  date('Y-m-d h:i:s a'),
+                                            'created_at' =>  date('Y-m-d H:i:s a'),
                                             'update_user' => Auth::user()->user_id,
-                                            'updated_at' => date('Y-m-d h:i:s a')
+                                            'updated_at' => date('Y-m-d H:i:s a')
                                         ]);
 
                         DB::connection($this->mysql)->table('tbl_wbs_inventory')->insert([
@@ -418,9 +418,9 @@ class WBSMaterialReceivingController extends Controller
                             'iqc_result' => '',
                             'received_date' => $mrdata->receive_date,
                             'create_user' => Auth::user()->user_id,
-                            'created_at' =>  date('Y-m-d h:i:s a'),
+                            'created_at' =>  date('Y-m-d H:i:s a'),
                             'update_user' => Auth::user()->user_id,
-                            'updated_at' => date('Y-m-d h:i:s a'),
+                            'updated_at' => date('Y-m-d H:i:s a'),
                             'mat_batch_id' => $mat_batch_id
                         ]);
 
@@ -442,8 +442,8 @@ class WBSMaterialReceivingController extends Controller
                     'total_qty' => $this->number_unformat($mrdata->total_qty),
                     'total_var' => $this->number_unformat($total_var),
                     'update_user' => Auth::user()->user_id,
-                    'updated_at' => date('Y-m-d h:i:s a'),
-                    'update_pg' => date('Y-m-d h:i:s a')
+                    'updated_at' => date('Y-m-d H:i:s a'),
+                    'update_pg' => date('Y-m-d H:i:s a')
                 ]);
             // DB::connection($this->mysql)->table('tbl_wbs_inventory')
             //     ->where('wbs_mr_id',$mrdata->receive_no)
@@ -1333,7 +1333,7 @@ class WBSMaterialReceivingController extends Controller
     public function printMaterialReceive(Request $req)
     {
         $dt = Carbon::now();
-        $date = substr($dt->format('  M j, Y A'), 2);
+        $date = substr($dt->format('  M j, Y'), 2);
 
         $common = new CommonController;
         $company_info = $common->getCompanyInfo();
@@ -1863,7 +1863,7 @@ class WBSMaterialReceivingController extends Controller
                     ->where('receive_no',$req->receivingno)->update([
                         'status' => 'C',
                         'update_user' => Auth::user()->user_id,
-                        'updated_at' => date('m/d/Y h:i A')
+                        'updated_at' => date('m/d/Y H:i A')
                     ]);
 
         if ($query) {
@@ -2001,9 +2001,9 @@ class WBSMaterialReceivingController extends Controller
             'received_date' => $received_date,
             'exp_date' => $exp_date,
             'create_user' => Auth::user()->user_id,
-            'created_at' =>  date('Y-m-d h:i:s a'),
+            'created_at' =>  date('Y-m-d H:i:s a'),
             'update_user' => Auth::user()->user_id,
-            'updated_at' => date('Y-m-d h:i:s a')
+            'updated_at' => date('Y-m-d H:i:s a')
         ]);
 
         DB::connection($this->mysql)->table('tbl_wbs_inventory')->insert([
@@ -2026,9 +2026,9 @@ class WBSMaterialReceivingController extends Controller
             'received_date' => $received_date,
             'exp_date' => $exp_date,
             'create_user' => Auth::user()->user_id,
-            'created_at' =>  date('Y-m-d h:i:s a'),
+            'created_at' =>  date('Y-m-d H:i:s a'),
             'update_user' => Auth::user()->user_id,
-            'updated_at' => date('Y-m-d h:i:s a'),
+            'updated_at' => date('Y-m-d H:i:s a'),
             'mat_batch_id' => $mat_batch_id
         ]);
 
@@ -2297,9 +2297,9 @@ class WBSMaterialReceivingController extends Controller
                 'received_date' => $req->received_date,
                 'exp_date' => $this->convertExpDate($req->exp_date),
                 'create_user' => Auth::user()->user_id,
-                'created_at' =>  date('m/d/Y h:i A'),
+                'created_at' =>  date('m/d/Y H:i A'),
                 'update_user' => Auth::user()->user_id,
-                'updated_at' => date('m/d/Y h:i A')
+                'updated_at' => date('m/d/Y H:i A')
             ]);
 
             DB::connection($this->mysql)->table('tbl_wbs_inventory')->insert([
@@ -2322,9 +2322,9 @@ class WBSMaterialReceivingController extends Controller
                 'received_date' => $req->received_date,
                 'exp_date' => $this->convertExpDate($req->exp_date),
                 'create_user' => Auth::user()->user_id,
-                'created_at' =>  date('m/d/Y h:i A'),
+                'created_at' =>  date('m/d/Y H:i A'),
                 'update_user' => Auth::user()->user_id,
-                'updated_at' => date('m/d/Y h:i A'),
+                'updated_at' => date('m/d/Y H:i A'),
                 'mat_batch_id' => $mat_batch_id
             ]);
 
@@ -2371,9 +2371,9 @@ class WBSMaterialReceivingController extends Controller
                         'unit_price' => $detail->price,
                         'amount' => $detail->amount,
                         'create_user' => Auth::user()->user_id,
-                        'created_at' =>  date('Y-m-d h:i:s a'),
+                        'created_at' =>  date('Y-m-d H:i:s a'),
                         'update_user' => Auth::user()->user_id,
-                        'updated_at' => date('Y-m-d h:i:s a')
+                        'updated_at' => date('Y-m-d H:i:s a')
                     ]);
             }
 
@@ -2403,9 +2403,9 @@ class WBSMaterialReceivingController extends Controller
                     'not_for_iqc' => $batch->not_for_iqc,
                     'for_kitting' => $batch->for_kitting,
                     'create_user' => Auth::user()->user_id,
-                    'created_at' =>  date('Y-m-d h:i:s a'),
+                    'created_at' =>  date('Y-m-d H:i:s a'),
                     'update_user' => Auth::user()->user_id,
-                    'updated_at' => date('Y-m-d h:i:s a')
+                    'updated_at' => date('Y-m-d H:i:s a')
                 ]);
             }
 
@@ -2441,8 +2441,8 @@ class WBSMaterialReceivingController extends Controller
                     'total_qty' => $this->number_unformat($mr_data->total_qty),
                     'total_var' => $this->number_unformat($variance->variance),
                     'update_user' => Auth::user()->user_id,
-                    'updated_at' => date('Y-m-d h:i:s a'),
-                    'update_pg' => date('Y-m-d h:i:s a')
+                    'updated_at' => date('Y-m-d H:i:s a'),
+                    'update_pg' => date('Y-m-d H:i:s a')
                 ]);
 
             $data = [
@@ -2471,7 +2471,7 @@ class WBSMaterialReceivingController extends Controller
                         'not_for_iqc' => $checkiqc,
                         'for_kitting' => $checkiqc,
                         'update_user' => Auth::user()->user_id,
-                        'updated_at' => date('Y-m-d h:i:s a')
+                        'updated_at' => date('Y-m-d H:i:s a')
                     ]);
             } else {
                 DB::connection($this->mysql)->table('tbl_wbs_material_receiving_batch')
@@ -2482,7 +2482,7 @@ class WBSMaterialReceivingController extends Controller
                         'for_kitting' => $checkiqc,
                         'iqc_status' => $iqcstatus,
                         'update_user' => Auth::user()->user_id,
-                        'updated_at' => date('Y-m-d h:i:s a')
+                        'updated_at' => date('Y-m-d H:i:s a')
                     ]);
             }
         }
@@ -2501,7 +2501,7 @@ class WBSMaterialReceivingController extends Controller
                         'not_for_iqc' => $checkiqc,
                         'for_kitting' => $checkiqc,
                         'update_user' => Auth::user()->user_id,
-                        'updated_at' => date('Y-m-d h:i:s a')
+                        'updated_at' => date('Y-m-d H:i:s a')
                     ]);
             } else {
                 DB::connection($this->mysql)->table('tbl_wbs_inventory')
@@ -2512,7 +2512,7 @@ class WBSMaterialReceivingController extends Controller
                         'for_kitting' => $checkiqc,
                         'iqc_status' => $iqcstatus,
                         'update_user' => Auth::user()->user_id,
-                        'updated_at' => date('Y-m-d h:i:s a')
+                        'updated_at' => date('Y-m-d H:i:s a')
                     ]);
             }
         }

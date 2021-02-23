@@ -82,9 +82,9 @@ class WBSLocalMaterialReceivingController extends Controller
                             'invoice_date' => $this->convertDate($req->invoicedate,'Y-m-d'),
                             'invoice_no' => $req->invoice_no,
                             'create_user' => Auth::user()->user_id,
-                            'created_at' => date('Y-m-d h:i:s a'),
+                            'created_at' => date('Y-m-d H:i:s a'),
                             'update_user' => Auth::user()->user_id,
-                            'updated_at' => date('Y-m-d h:i:s a')
+                            'updated_at' => date('Y-m-d H:i:s a')
                         ]);
             if ($insert) {
                 $data = [
@@ -101,7 +101,7 @@ class WBSLocalMaterialReceivingController extends Controller
                             'invoice_no' => $req->invoice_no,
                             'orig_invoice_no' => $req->orig_invoice,
                             'update_user' => Auth::user()->user_id,
-                            'updated_at' => date('Y-m-d h:i:s a')
+                            'updated_at' => date('Y-m-d H:i:s a')
                         ]);
             if ($update) {
                 DB::connection($this->mysql)->table('tbl_wbs_local_receiving_batch')
@@ -111,7 +111,7 @@ class WBSLocalMaterialReceivingController extends Controller
                         'orig_invoice_no' => $req->orig_invoice,
                         'received_date' => $this->convertDate($req->receivingdate,'Y-m-d'),
                         'update_user' => Auth::user()->user_id,
-                        'updated_at' => date('Y-m-d h:i:s a')
+                        'updated_at' => date('Y-m-d H:i:s a')
                     ]);
                 $data = [
                     'msg' => 'Successfully saved.',
@@ -273,9 +273,9 @@ class WBSLocalMaterialReceivingController extends Controller
                     'received_date' => $this->getReceivedDate($data['receivingno']),
                     'exp_date' => ($data['exp_date'] == 'N/A' || $data['exp_date'] == 'n/a' || $data['exp_date'] == 'NA' || $data['exp_date'] == 'na' || $data['exp_date'] == '')? 'N/A' : $this->com->convertDate($data['exp_date'],'Y-m-d'),
                     'create_user' => Auth::user()->user_id,
-                    'created_at' =>  date('Y-m-d h:i:s a'),
+                    'created_at' =>  date('Y-m-d H:i:s a'),
                     'update_user' => Auth::user()->user_id,
-                    'updated_at' => date('Y-m-d h:i:s a')
+                    'updated_at' => date('Y-m-d H:i:s a')
                 ]);
 
                 DB::connection($this->mysql)->table('tbl_wbs_inventory')->insert([
@@ -298,9 +298,9 @@ class WBSLocalMaterialReceivingController extends Controller
                     'received_date' => $this->getReceivedDate($data['receivingno']),
                     'exp_date' => ($data['exp_date'] == 'N/A' || $data['exp_date'] == 'n/a' || $data['exp_date'] == 'NA' || $data['exp_date'] == 'na' || $data['exp_date'] == '')? 'N/A': $this->com->convertDate($data['exp_date'],'Y-m-d'),
                     'create_user' => Auth::user()->user_id,
-                    'created_at' =>  date('Y-m-d h:i:s a'),
+                    'created_at' =>  date('Y-m-d H:i:s a'),
                     'update_user' => Auth::user()->user_id,
-                    'updated_at' => date('Y-m-d h:i:s a'),
+                    'updated_at' => date('Y-m-d H:i:s a'),
                     'loc_batch_id' => $loc_batch_id
                 ]);
             }
@@ -308,7 +308,7 @@ class WBSLocalMaterialReceivingController extends Controller
             DB::connection($this->mysql)->table('tbl_wbs_local_receiving')
                 ->where('receive_no',$data['receivingno'])->update([
                     'update_user' => Auth::user()->user_id,
-                    'updated_at' => date('Y-m-d h:i:s a')
+                    'updated_at' => date('Y-m-d H:i:s a')
                 ]);
         }
     }
@@ -349,7 +349,7 @@ class WBSLocalMaterialReceivingController extends Controller
                     ->where('receive_no',$req->controlno)
                     ->update([
                         'update_user' => Auth::user()->user_id,
-                        'updated_at' => date('Y-m-d h:i:s a')
+                        'updated_at' => date('Y-m-d H:i:s a')
                     ]);
                 DB::connection($this->mysql)->table('tbl_wbs_inventory')
                     ->where('loc_batch_id',$req->id)
@@ -391,9 +391,9 @@ class WBSLocalMaterialReceivingController extends Controller
                 'received_date' => $this->getReceivedDate($req->controlno),
                 'exp_date' => ($req->exp_date == 'N/A' || $req->exp_date == 'n/a' || $req->exp_date == 'NA' || $req->exp_date == 'na' || $req->exp_date == '')? 'N/A': $this->com->convertDate($req->exp_date,'Y-m-d'),
                 'create_user' => Auth::user()->user_id,
-                'created_at' =>  date('Y-m-d h:i:s a'),
+                'created_at' =>  date('Y-m-d H:i:s a'),
                 'update_user' => Auth::user()->user_id,
-                'updated_at' => date('Y-m-d h:i:s a')
+                'updated_at' => date('Y-m-d H:i:s a')
             ]);
 
             DB::connection($this->mysql)->table('tbl_wbs_inventory')->insert([
@@ -416,9 +416,9 @@ class WBSLocalMaterialReceivingController extends Controller
                 'received_date' => $this->getReceivedDate($req->controlno),
                 'exp_date' => ($req->exp_date == 'N/A' || $req->exp_date == 'n/a' || $req->exp_date == 'NA' || $req->exp_date == 'na' || $req->exp_date == '')? 'N/A': $this->com->convertDate($req->exp_date,'Y-m-d'),
                 'create_user' => Auth::user()->user_id,
-                'created_at' =>  date('Y-m-d h:i:s a'),
+                'created_at' =>  date('Y-m-d H:i:s a'),
                 'update_user' => Auth::user()->user_id,
-                'updated_at' => date('Y-m-d h:i:s a'),
+                'updated_at' => date('Y-m-d H:i:s a'),
                 'loc_batch_id' => $loc_batch_id
             ]);
 
@@ -427,7 +427,7 @@ class WBSLocalMaterialReceivingController extends Controller
                     ->where('receive_no',$req->controlno)
                     ->update([
                         'update_user' => Auth::user()->user_id,
-                        'updated_at' => date('Y-m-d h:i:s a')
+                        'updated_at' => date('Y-m-d H:i:s a')
                     ]);
 
                 $data = [
