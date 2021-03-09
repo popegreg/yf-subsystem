@@ -273,6 +273,9 @@
         var getPackageCategoryURL= "{{ url('/wbslocpackagecategory') }}";
         var DeleteBatchItemURL = "{{ url('/wbslocaldeletebatchitem') }}";
         var getTotalURL = "{{ url('/wbslocgettotal') }}";
+        var access_state = "{{ $pgaccess }}";
+        var pcode = "{{ $pgcode }}";
+        
     </script>
     <script src="{{ asset(config('constants.PUBLIC_PATH').'assets/global/scripts/common.js') }}" type="text/javascript"></script>
     <script src="{{ asset(config('constants.PUBLIC_PATH').'assets/global/scripts/localreceiving.js') }}" type="text/javascript"></script>

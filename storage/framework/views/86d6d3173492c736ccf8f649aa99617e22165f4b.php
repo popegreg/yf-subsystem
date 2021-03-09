@@ -1,19 +1,17 @@
-@extends('layouts.master')
-
-@section('title')
+<?php $__env->startSection('title'); ?>
     WBS | Pricon Microelectronics, Inc.
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('content')
+<?php $__env->startSection('content'); ?>
 
     <?php $state = ""; $readonly = ""; ?>
-    @foreach ($userProgramAccess as $access)
-        @if ($access->program_code == Config::get('constants.MODULE_CODE_PRDMATRET'))  <!-- Please update "2001" depending on the corresponding program_code -->
-            @if ($access->read_write == "2")
+    <?php foreach($userProgramAccess as $access): ?>
+        <?php if($access->program_code == Config::get('constants.MODULE_CODE_PRDMATRET')): ?>  <!-- Please update "2001" depending on the corresponding program_code -->
+            <?php if($access->read_write == "2"): ?>
             <?php $state = "disabled"; $readonly = "readonly"; ?>
-            @endif
-        @endif
-    @endforeach
+            <?php endif; ?>
+        <?php endif; ?>
+    <?php endforeach; ?>
     
     <div class="page-content">
 
@@ -21,7 +19,7 @@
         <div class="row">
             <div class="col-md-12">
                 <!-- BEGIN EXAMPLE TABLE PORTLET-->
-                @include('includes.message-block')
+                <?php echo $__env->make('includes.message-block', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
                 <div class="portlet box blue" >
                     <div class="portlet-title">
                         <div class="caption">
@@ -187,27 +185,28 @@
         <!-- END PAGE CONTENT-->
     </div>
 
-    @include('includes.productreturn-modal')
-    @include('includes.modals')
+    <?php echo $__env->make('includes.productreturn-modal', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+    <?php echo $__env->make('includes.modals', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 
-@endsection
+<?php $__env->stopSection(); ?>
 
-@push('script')
+<?php $__env->startPush('script'); ?>
     <script type="text/javascript">
-        var token = "{{ Session::token() }}";
-        var saveMaterialReturnURL = "{{ url('/save-material-return') }}";
-        var getMaterialReturnDataURL = "{{ url('/get-material-return-data') }}";
-        var getIssuanceNoURL = "{{ url('/get-issuanceno') }}";
-        var getItemDetailsURL = "{{ url('/get-item-details') }}";
-        var barcodeURL = "{{ url('/wbsreturn-brprint?id=') }}";
-        var deleteDetailsURL = "{{ url('/delete-item-return') }}";
-        var excelURL = "{{ url('/excel-return') }}";
-        var deleteControlNoURL = "{{ url('/delete-control-return') }}";
+        var token = "<?php echo e(Session::token()); ?>";
+        var saveMaterialReturnURL = "<?php echo e(url('/save-material-return')); ?>";
+        var getMaterialReturnDataURL = "<?php echo e(url('/get-material-return-data')); ?>";
+        var getIssuanceNoURL = "<?php echo e(url('/get-issuanceno')); ?>";
+        var getItemDetailsURL = "<?php echo e(url('/get-item-details')); ?>";
+        var barcodeURL = "<?php echo e(url('/wbsreturn-brprint?id=')); ?>";
+        var deleteDetailsURL = "<?php echo e(url('/delete-item-return')); ?>";
+        var excelURL = "<?php echo e(url('/excel-return')); ?>";
+        var deleteControlNoURL = "<?php echo e(url('/delete-control-return')); ?>";
 
-        var access_state = "{{ $pgaccess }}";
-        var pcode = "{{ $pgcode }}";
+        var access_state = "<?php echo e($pgaccess); ?>";
+        var pcode = "<?php echo e($pgcode); ?>";
 
     </script>
-    <script src="{{ asset(config('constants.PUBLIC_PATH').'assets/global/scripts/common.js') }}" type="text/javascript"></script>
-    <script src="{{ asset(config('constants.PUBLIC_PATH').'assets/global/scripts/productionmaterialreturn.js') }}" type="text/javascript"></script>
-@endpush
+    <script src="<?php echo e(asset(config('constants.PUBLIC_PATH').'assets/global/scripts/common.js')); ?>" type="text/javascript"></script>
+    <script src="<?php echo e(asset(config('constants.PUBLIC_PATH').'assets/global/scripts/productionmaterialreturn.js')); ?>" type="text/javascript"></script>
+<?php $__env->stopPush(); ?>
+<?php echo $__env->make('layouts.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

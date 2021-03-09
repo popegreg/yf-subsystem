@@ -37,14 +37,19 @@ class WBSInventoryController extends Controller
 
     public function index()
     {
-        if(!$this->com->getAccessRights(Config::get('constants.MODULE_WBS_INV'), $userProgramAccess))
+        $pgcode = Config::get('constants.MODULE_WBS_INV');
+
+        if(!$this->com->getAccessRights($pgcode, $userProgramAccess))
         {
             return redirect('/home');
         }
         else
         {
-            # Render WBS Page.
-            return view('wbs.wbsinventory',['userProgramAccess' => $userProgramAccess]);
+            return view('wbs.wbsinventory',[
+                            'userProgramAccess' => $userProgramAccess,
+                            'pgcode' => $pgcode,
+                            'pgaccess' => $this->com->getPgAccess($pgcode)
+                        ]);
         }
     }
 

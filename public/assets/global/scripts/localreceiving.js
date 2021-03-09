@@ -402,31 +402,65 @@ function LocalBatch(data) {
 }
 
 function viewstate() {
-	$('#controlno').prop('readonly',false);
-	$('#btn_min').prop('disabled',false);
-	$('#btn_prv').prop('disabled',false);
-	$('#btn_nxt').prop('disabled',false);
-	$('#btn_max').prop('disabled',false);
+	if (parseInt(access_state) !== 2) {
+		$('#controlno').prop('readonly', false);
+		$('#btn_min').prop('disabled', false);
+		$('#btn_prv').prop('disabled', false);
+		$('#btn_nxt').prop('disabled', false);
+		$('#btn_max').prop('disabled', false);
 
-	$('#invoice_no').prop('readonly',true);
-	$('#orig_invoice').prop('readonly',true);
-	$('#invoicedate').prop('readonly',true);
-	$('#receivingdate').prop('readonly',true);
-	$('#btn_save').hide();
-	$('#btn_back').hide();
-	$('#btn_addDetails').hide();
-	$('#btn_deleteDetails').hide();
+		$('#invoice_no').prop('readonly', true);
+		$('#orig_invoice').prop('readonly', true);
+		$('#invoicedate').prop('readonly', true);
+		$('#receivingdate').prop('readonly', true);
+		$('#btn_save').hide();
+		$('#btn_back').hide();
+		$('#btn_addDetails').hide();
+		$('#btn_deleteDetails').hide();
 
-	$('#btn_add').show();
-	$('#btn_edit').show();
-	$('#btn_search').show();
-	$('#btn_excel').show();
-	$('#btn_print_iqc').show();
-	$('#btn_upload').prop('disabled',false);
-	$('.checkboxes').prop('disabled',true);
-	$('.group-checkable').prop('disabled',true);
-	$('.not_for_iqc').prop('disabled',true);
-	$('.is_printed').prop('disabled',true);
+		//$('.edit_batch').prop('disabled', true);
+
+		$('#btn_add').show();
+		$('#btn_edit').show();
+		$('#btn_search').show();
+		$('#btn_excel').show();
+		$('#btn_print_iqc').show();
+		$('#btn_upload').prop('disabled', true);
+		$('.checkboxes').prop('disabled', true);
+		$('.group-checkable').prop('disabled', true);
+		$('.not_for_iqc').prop('disabled', true);
+		$('.is_printed').prop('disabled', true);
+	} else {
+		$('#controlno').prop('readonly', false);
+		$('#btn_min').prop('disabled', false);
+		$('#btn_prv').prop('disabled', false);
+		$('#btn_nxt').prop('disabled', false);
+		$('#btn_max').prop('disabled', false);
+
+		$('#invoice_no').prop('readonly', true);
+		$('#orig_invoice').prop('readonly', true);
+		$('#invoicedate').prop('readonly', true);
+		$('#receivingdate').prop('readonly', true);
+		$('#btn_save').hide();
+		$('#btn_back').hide();
+		$('#btn_addDetails').hide();
+		$('#btn_deleteDetails').hide();
+
+		$('.edit_batch').prop('disabled', true);
+
+		$('#btn_add').hide();
+		$('#btn_edit').hide();
+		$('#btn_search').show();
+		$('#btn_excel').show();
+		$('#btn_print_iqc').show();
+		$('#btn_upload').prop('disabled', true);
+		$('.checkboxes').prop('disabled', true);
+		$('.group-checkable').prop('disabled', true);
+		$('.not_for_iqc').prop('disabled', true);
+		$('.is_printed').prop('disabled', true);
+		$('#uploadbatchfiles > div > div.col-sm-6 > div > span').css({'pointer-events': 'none', 'opacity': '0.4'});
+		$('#btn_print_iqc').hide();
+	}
 }
 
 function addstate() {

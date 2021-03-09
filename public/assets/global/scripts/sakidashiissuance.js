@@ -572,33 +572,65 @@ function itemHistory() {
 }
 
 function viewState() {
-	$('#issuancenosaki').prop('readonly', false);
-	$('#ponosaki').prop('readonly', true);
-	$('#incharge').prop('readonly', true);
-	$('#remarks').prop('readonly', true);
+	if (parseInt(access_state) !== 2) {
+		$('#issuancenosaki').prop('readonly', false);
+		$('#ponosaki').prop('readonly', true);
+		$('#incharge').prop('readonly', true);
+		$('#remarks').prop('readonly', true);
+		//$('#assessment').prop('readonly', true);
 
-	$('#lotno').prop('readonly', true);
-	$('#pairno').prop('readonly', true);
-	$('#issueqty').prop('readonly', true);
-	$('#reqqty').prop('readonly', true);
-	$('#schedretdate').prop('readonly', true);
+		$('#lotno').prop('readonly', true);
+		$('#pairno').prop('readonly', true);
+		$('#issueqty').prop('readonly', true);
+		$('#reqqty').prop('readonly', true);
+		$('#schedretdate').prop('disabled', true);
 
-	$('#btn_ponosaki').prop('disabled', true);
-	$('#btn_partcode').hide();
+		$('#btn_ponosaki').prop('disabled', true);
+		$('#btn_partcode').hide();
 
-	$('#btn_min').prop('disabled', false);
-	$('#btn_prv').prop('disabled', false);
-	$('#btn_nxt').prop('disabled', false);
-	$('#btn_max').prop('disabled', false);
+		$('#btn_min').prop('disabled', false);
+		$('#btn_prv').prop('disabled', false);
+		$('#btn_nxt').prop('disabled', false);
+		$('#btn_max').prop('disabled', false);
 
-	$('#btn_save').hide();
-	$('#btn_cancel').hide();
-	$('#btn_discard').hide();
+		$('#btn_save').hide();
+		$('#btn_cancel').hide();
+		$('#btn_discard').hide();
 
-	$('#btn_add').show();
-	$('#btn_edit').show();
-	$('#btn_search').show();
-	$('#btn_print').show();
+		$('#btn_add').show();
+		$('#btn_edit').show();
+		$('#btn_search').show();
+		$('#btn_print').show();
+	} else {
+		$('#issuancenosaki').prop('readonly', false);
+		$('#ponosaki').prop('readonly', true);
+		$('#incharge').prop('readonly', true);
+		$('#remarks').prop('readonly', true);
+		//$('#assessment').prop('readonly', true);
+
+		$('#lotno').prop('readonly', true);
+		$('#pairno').prop('readonly', true);
+		$('#issueqty').prop('readonly', true);
+		$('#reqqty').prop('readonly', true);
+		$('#schedretdate').prop('disabled', true);
+
+		$('#btn_ponosaki').prop('disabled', true);
+		$('#btn_partcode').hide();
+
+		$('#btn_min').prop('disabled', false);
+		$('#btn_prv').prop('disabled', false);
+		$('#btn_nxt').prop('disabled', false);
+		$('#btn_max').prop('disabled', false);
+
+		$('#btn_save').hide();
+		$('#btn_cancel').hide();
+		$('#btn_discard').hide();
+
+		$('#btn_add').hide();
+		$('#btn_edit').hide();
+		$('#btn_search').show();
+		$('#btn_print').show();
+	}
 }
 
 function addState() {

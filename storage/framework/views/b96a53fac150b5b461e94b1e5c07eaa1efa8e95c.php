@@ -1,18 +1,16 @@
-@extends('layouts.master')
-
-@section('title')
+<?php $__env->startSection('title'); ?>
 	WBS | Pricon Microelectronics, Inc.
-@endsection
-@section('content')
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('content'); ?>
 
 	<?php $state = ""; $readonly = ""; ?>
-	@foreach ($userProgramAccess as $access)
-		@if ($access->program_code == Config::get('constants.MODULE_CODE_WBS'))  <!-- Please update "2001" depending on the corresponding program_code -->
-			@if ($access->read_write == "2")
+	<?php foreach($userProgramAccess as $access): ?>
+		<?php if($access->program_code == Config::get('constants.MODULE_CODE_WBS')): ?>  <!-- Please update "2001" depending on the corresponding program_code -->
+			<?php if($access->read_write == "2"): ?>
 			<?php $state = "disabled"; $readonly = "readonly"; ?>
-			@endif
-		@endif
-	@endforeach
+			<?php endif; ?>
+		<?php endif; ?>
+	<?php endforeach; ?>
 	
 	<div class="page-content">
 		<div class="portlet box blue" >
@@ -54,8 +52,9 @@
             				<div class="form-group row">
             					<label class="control-label col-md-3">PO No.</label>
             					<div class="col-md-7">
-            						<form action="{{ url('/wbsprodmatrequest/search-po') }}" method="post" id="frm_search_po">
-            							{{ csrf_field() }}
+            						<form action="<?php echo e(url('/wbsprodmatrequest/search-po')); ?>" method="post" id="frm_search_po">
+            							<?php echo e(csrf_field()); ?>
+
                 					 	<div class="input-group">
                                             <input type="text" class="form-control clear input-sm" id="po" name="po" maxlength="15">
 
@@ -206,22 +205,23 @@
 		<input type="hidden" name="checkacknowledge" id="checkacknowledge">
 	</div>
 
-	@include('includes.productrequest-modal')
-	@include('includes.modals')
-@endsection
-@push('script')
+	<?php echo $__env->make('includes.productrequest-modal', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+	<?php echo $__env->make('includes.modals', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+<?php $__env->stopSection(); ?>
+<?php $__env->startPush('script'); ?>
     <script type="text/javascript">
-        var token = "{{ Session::token() }}";
-        var SelectPODetailURL = "{{url('/wbsprodmatrequest/select-po-details')}}";
-        var getSelectionsURL = "{{url('/wbsprodmatrequest/get-selections')}}";
-        var user = "{{ Auth::user()->user_id }}";
-        var saveURL = "{{url('/wbsprodmatrequest/save')}}";
-        var getDataURL = "{{url('/wbsprodmatrequest/get-data')}}";
-        var acknowledgeURL = "{{url('/wbsprodmatrequest/acknowledge')}}";
-        var getPDFURL = "{{url('/wbsprodmatrequest/get-pdf')}}";
-        var access_state = "{{ $pgaccess }}";
-        var pcode = "{{ $pgcode }}";
+        var token = "<?php echo e(Session::token()); ?>";
+        var SelectPODetailURL = "<?php echo e(url('/wbsprodmatrequest/select-po-details')); ?>";
+        var getSelectionsURL = "<?php echo e(url('/wbsprodmatrequest/get-selections')); ?>";
+        var user = "<?php echo e(Auth::user()->user_id); ?>";
+        var saveURL = "<?php echo e(url('/wbsprodmatrequest/save')); ?>";
+        var getDataURL = "<?php echo e(url('/wbsprodmatrequest/get-data')); ?>";
+        var acknowledgeURL = "<?php echo e(url('/wbsprodmatrequest/acknowledge')); ?>";
+        var getPDFURL = "<?php echo e(url('/wbsprodmatrequest/get-pdf')); ?>";
+        var access_state = "<?php echo e($pgaccess); ?>";
+        var pcode = "<?php echo e($pgcode); ?>";
     </script>
-    <script src="{{ asset(config('constants.PUBLIC_PATH').'assets/global/scripts/common.js') }}" type="text/javascript"></script>
-    <script src="{{ asset(config('constants.PUBLIC_PATH').'assets/global/scripts/production_material_request.js') }}" type="text/javascript"></script>
-@endpush
+    <script src="<?php echo e(asset(config('constants.PUBLIC_PATH').'assets/global/scripts/common.js')); ?>" type="text/javascript"></script>
+    <script src="<?php echo e(asset(config('constants.PUBLIC_PATH').'assets/global/scripts/production_material_request.js')); ?>" type="text/javascript"></script>
+<?php $__env->stopPush(); ?>
+<?php echo $__env->make('layouts.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

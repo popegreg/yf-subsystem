@@ -37,6 +37,8 @@ class WBSProdMatReturnController extends Controller
 
     public function getProdMatReturn()
     {
+        $pgcode = Config::get('constants.MODULE_CODE_PRDMATRET');
+
         if(!$this->com->getAccessRights(Config::get('constants.MODULE_CODE_PRDMATRET'), $userProgramAccess))
         {
             return redirect('/home');
@@ -44,8 +46,12 @@ class WBSProdMatReturnController extends Controller
         else
         {
 
-	        return view('wbs.productionmaterialreturn',['userProgramAccess' => $userProgramAccess]);
-	    }
+            return view('wbs.productionmaterialreturn',[
+                            'userProgramAccess' => $userProgramAccess,
+                            'pgcode' => $pgcode,
+                            'pgaccess' => $this->com->getPgAccess($pgcode)
+                        ]);
+        }
     }
 
     public function getData(Request $req)

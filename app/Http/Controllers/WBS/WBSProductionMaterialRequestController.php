@@ -38,14 +38,18 @@ class WBSProductionMaterialRequestController extends Controller
 
     public function index()
     {
-        if(!$this->com->getAccessRights(Config::get('constants.MODULE_CODE_PRDMATREQ'), $userProgramAccess))
+        $pgcode = Config::get('constants.MODULE_CODE_PRDMATREQ');
+        if(!$this->com->getAccessRights($pgcode, $userProgramAccess))
         {
             return redirect('/home');
         }
         else
         {
             return view('wbs.productmaterialrequest',[
-                'userProgramAccess' => $userProgramAccess]);
+						'userProgramAccess' => $userProgramAccess,
+						'pgcode' => $pgcode,
+                        'pgaccess' => $this->com->getPgAccess($pgcode)
+					]);
         }
     }
 

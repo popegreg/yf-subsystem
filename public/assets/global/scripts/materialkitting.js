@@ -506,48 +506,90 @@ function setControl(ctrl) {
 
 function viewState() {
 	//buttons
-	$('#btn_addPO').show();
-	$('#btn_save').hide();
+	if (parseInt(access_state) !== 2) {
+		$('#btn_addPO').show();
+		$('#btn_save').hide();
 
-	if ($('#status').val() === 'Cancelled' || $('#status').val() === 'C') {
+		if ($('#status').val() === 'Cancelled' || $('#status').val() === 'C') {
+			$('#btn_edit').hide();
+			$('#btn_cancel').hide();
+			// $('#btn_kittinglist').hide();
+			$('#btn_print').hide();
+		} else {
+			$('#btn_edit').show();
+			$('#btn_cancel').show();
+			// $('#btn_kittinglist').show();
+			$('#btn_print').show();
+		}
+
+		$('.btn_edit_issuance').prop('disabled', true);
+
+
+		
+		$('#btn_discard').hide();
+		$('#btn_search').show();
+		$('#btn_delete_kit_details').hide();
+		$('#btn_add_issuance_details').hide();
+		$('#btn_update_issuance_details').hide();
+		$('#btn_delete_issuance_details').hide();
+
+		// input control buttons
+		$('#btn_min').removeAttr('disabled');
+		$('#btn_prv').removeAttr('disabled');
+		$('#btn_nxt').removeAttr('disabled');
+		$('#btn_max').removeAttr('disabled');
+		$('#btn_searchpo').prop('disabled',true);
+		$('#btn_kitqty').prop('disabled',true);
+
+		//inputs
+		$('#issuanceno').prop('readonly',false);
+		$('#searchpono').prop('readonly',true);
+		$('#devicecode').prop('readonly',true);
+		$('#devicename').prop('readonly',true);
+		$('#poqty').prop('readonly',true);
+		$('#kitqty').prop('readonly',true);
+		$('#kitno').prop('readonly',true);
+		//$('#assessment').prop('readonly',true);
+		$('#preparedby').prop('readonly',true);
+		$('#btn_addPO').prop('disabled', false);
+	} else {
+		$('#btn_addPO').hide();
+		$('#btn_save').hide();
+
 		$('#btn_edit').hide();
 		$('#btn_cancel').hide();
-		// $('#btn_kittinglist').hide();
-		$('#btn_print').hide();
-	} else {
-		$('#btn_edit').show();
-		$('#btn_cancel').show();
-		// $('#btn_kittinglist').show();
 		$('#btn_print').show();
+
+		$('.btn_edit_issuance').prop('disabled', true);
+
+		$('#btn_discard').hide();
+		$('#btn_search').show();
+		$('#btn_delete_kit_details').hide();
+		$('#btn_add_issuance_details').hide();
+		$('#btn_update_issuance_details').hide();
+		$('#btn_delete_issuance_details').hide();
+		$('#btn_check_details').hide();
+
+		// input control buttons
+		$('#btn_min').removeAttr('disabled');
+		$('#btn_prv').removeAttr('disabled');
+		$('#btn_nxt').removeAttr('disabled');
+		$('#btn_max').removeAttr('disabled');
+		$('#btn_searchpo').prop('disabled', true);
+		$('#btn_kitqty').prop('disabled', true);
+
+		//inputs
+		$('#issuanceno').prop('readonly', false);
+		$('#searchpono').prop('readonly', true);
+		$('#devicecode').prop('readonly', true);
+		$('#devicename').prop('readonly', true);
+		$('#poqty').prop('readonly', true);
+		$('#kitqty').prop('readonly', true);
+		$('#kitno').prop('readonly', true);
+		//$('#assessment').prop('readonly', true);
+		$('#preparedby').prop('readonly', true);
+		$('#btn_addPO').prop('disabled', false);
 	}
-
-	$('.btn_edit_issuance').prop('disabled', true);
-	
-	$('#btn_discard').hide();
-	$('#btn_search').show();
-	$('#btn_delete_kit_details').hide();
-	$('#btn_add_issuance_details').hide();
-	$('#btn_update_issuance_details').hide();
-	$('#btn_delete_issuance_details').hide();
-
-	// input control buttons
-	$('#btn_min').removeAttr('disabled');
-	$('#btn_prv').removeAttr('disabled');
-	$('#btn_nxt').removeAttr('disabled');
-	$('#btn_max').removeAttr('disabled');
-	$('#btn_searchpo').prop('disabled',true);
-	$('#btn_kitqty').prop('disabled',true);
-
-	//inputs
-	$('#issuanceno').prop('readonly',false);
-	$('#searchpono').prop('readonly',true);
-	$('#devicecode').prop('readonly',true);
-	$('#devicename').prop('readonly',true);
-	$('#poqty').prop('readonly',true);
-	$('#kitqty').prop('readonly',true);
-	$('#kitno').prop('readonly',true);
-	$('#preparedby').prop('readonly',true);
-	$('#btn_addPO').prop('disabled', false);
 }
 
 function editState() {

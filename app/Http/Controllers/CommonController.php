@@ -674,4 +674,18 @@ class  CommonController extends Controller
         $newdate = date($format,$time);
         return $newdate;
     }
+
+    public function getPgAccess($pgcode)
+    {
+        $pg = DB::connection($this->common)->table('muserprograms')
+                ->where('user_id', Auth::user()->user_id)
+                ->where('program_code',$pgcode)
+                ->first();
+
+        if ($this->checkIfExistObject($pg) > 0) {
+            return $pg->read_write;
+        }
+
+        return 0;
+    }
 }

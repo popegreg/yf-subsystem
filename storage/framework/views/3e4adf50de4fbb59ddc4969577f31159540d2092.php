@@ -684,6 +684,9 @@
           var checkIfNotForIQCURL = "<?php echo e(url('/wbsmrcheckifnotforiqc')); ?>"; */ ?>
      <script type="text/javascript">
 
+          var access_state = "<?php echo e($pgaccess); ?>";
+          var pcode = "<?php echo e($pgcode); ?>";
+
           $(function() {
                tblDetails();
                tblSummary();
@@ -1426,42 +1429,79 @@
           }
 
           function ViewState() {
-               //clear();
-               $('#receivingno').prop('readonly', false);
-               $('#palletno').prop('readonly', true);
-               $('#receivingdate').prop('readonly', true);
-               $('#invoiceno').prop('readonly',true);
+                if (parseInt(access_state) !== 2) {
+            $('#receivingno').prop('disabled', false);
+            $('#palletno').prop('readonly', true);
+            $('#receivingdate').prop('readonly', true);
+            $('#invoiceno').prop('readonly', true);
+            $('#btn_checkinv').prop('disabled',false);
 
-               // $('.chk_del_batch').prop('disabled', true);
-               // $('.edit_item_batch').prop('disabled', true);
-               $('#btn_add_batch').prop('disabled', true);
-               $('#btn_upload').prop('disabled', true);
-               $('#btn_all_batch').prop('disabled', true);
-               $('#btn_delete_batch').prop('disabled', true);
+            // $('.chk_del_batch').prop('disabled', true);
+            // $('.edit_item_batch').prop('disabled', true);
+            $('#btn_add_batch').prop('disabled', true);
+            $('#btn_upload').prop('disabled', true);
+            $('#btn_all_batch').prop('disabled', true);
+            $('#btn_delete_batch').prop('disabled', true);
 
-               $('#btn_save').hide();
-               $('#btn_cancel').hide();
-               $('#btn_discard').hide();
-               $('#btn_addnew').show();
+            $('#btn_save').hide();
+            $('#btn_cancel').hide();
+            $('#btn_discard').hide();
+            $('#btn_addnew').show();
 
-               if ($('#status').val() == 'Cancelled') {
-                    $('#btn_edit').hide();
-               } else {
-                    $('#btn_edit').show();
-               }
+            if ($('#status').val() == 'Cancelled') {
+                $('#btn_edit').hide();
+            } else {
+                $('#btn_edit').show();
+            }
 
-               $('#btn_search').show();
-               $('#btn_barcode').show();
-               $('#btn_print').show();
-               $('#btn_print_iqc').show();
-               $('#btn_cancel_mr').show();
+            $('#btn_search').show();
+            $('#btn_barcode').show();
+            $('#btn_print').show();
+            $('#btn_print_iqc').show();
+            $('#btn_cancel_mr').show();
+            $('#btn_refresh').show();
 
-               $('#checkbox_iqc').prop('disabled',true);
-               //$('.barcode_item_batch').prop('disabled',true);
-               $('.addBatchsummary').hide();
+            $('#checkbox_iqc').prop('disabled', true);
+            //$('.barcode_item_batch').prop('disabled',true);
+            $('.addBatchsummary').hide();
+        } else {
+            $('#receivingno').prop('disabled', false);
+            $('#palletno').prop('readonly', true);
+            $('#receivingdate').prop('readonly', true);
+            $('#invoiceno').prop('readonly', true);
+            $('#btn_checkinv').prop('disabled',true);
 
-               //getLatestRecord();
-          }
+            // $('.chk_del_batch').prop('disabled', true);
+            // $('.edit_item_batch').prop('disabled', true);
+            $('#btn_add_batch').prop('disabled', true);
+            $('#btn_upload').prop('disabled', true);
+            $('#btn_all_batch').prop('disabled', true);
+            $('#btn_delete_batch').prop('disabled', true);
+
+            $('#btn_save').hide();
+            $('#btn_cancel').hide();
+            $('#btn_discard').hide();
+            $('#btn_addnew').hide();
+
+            if ($('#status').val() == 'Cancelled') {
+                $('#btn_edit').hide();
+            } else {
+                $('#btn_edit').hide();
+            }
+
+            $('#btn_search').show();
+            $('#btn_barcode').hide();
+            $('#btn_print').hide();
+            $('#btn_print_iqc').hide();
+            $('#btn_cancel_mr').hide();
+            $('#btn_refresh').hide();
+
+            $('#checkbox_iqc').prop('disabled', true);
+            //$('.barcode_item_batch').prop('disabled',true);
+            $('.addBatchsummary').hide();
+            $('#uploadbatchfiles > div > div.col-sm-6 > div > span').css({'pointer-events': 'none', 'opacity': '0.4'});
+        }
+     }
 
           function EditState() {
                $('#btn_edit').hide();

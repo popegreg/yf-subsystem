@@ -66,7 +66,8 @@ class WBSMaterialReceivingController extends Controller
     public function getWBSMaterialReceiving(Request $request_data)
     {
         $common = new CommonController;
-        if(!$common->getAccessRights(Config::get('constants.MODULE_CODE_MATRVC'), $userProgramAccess))
+        $pgcode = Config::get('constants.MODULE_CODE_MATRVC');
+        if(!$common->getAccessRights($pgcode, $userProgramAccess))
         {
             return redirect('/home');
         }
@@ -75,7 +76,9 @@ class WBSMaterialReceivingController extends Controller
 
             #Render WBS Page.
             return view('wbs.materialreceiving', [
-                        'userProgramAccess' => $userProgramAccess
+                        'userProgramAccess' => $userProgramAccess,
+                        'pgcode' => $pgcode,
+                        'pgaccess' => $common->getPgAccess($pgcode)
                     ]);
         }
     }

@@ -38,13 +38,18 @@ class WBSMaterialKittingController extends Controller
 
     public function index()
     {
-        if(!$this->com->getAccessRights(Config::get('constants.MODULE_CODE_MATKIT'), $userProgramAccess))
+        $pgcode = Config::get('constants.MODULE_CODE_MATKIT');
+        if(!$this->com->getAccessRights($pgcode, $userProgramAccess))
         {
             return redirect('/home');
         }
         else
         {
-            return view('wbs.materialkitting',['userProgramAccess' => $userProgramAccess]);
+            return view('wbs.materialkitting',[
+                            'userProgramAccess' => $userProgramAccess,
+                            'pgcode' => $pgcode,
+                            'pgaccess' => $this->com->getPgAccess($pgcode)
+                        ]);
         }
     }
 

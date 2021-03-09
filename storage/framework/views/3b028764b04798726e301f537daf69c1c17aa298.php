@@ -1,10 +1,8 @@
-@extends('layouts.master')
-
-@section('title')
+<?php $__env->startSection('title'); ?>
 	WBS | Pricon Microelectronics, Inc.
-@endsection
+<?php $__env->stopSection(); ?>
 
-@push('css')
+<?php $__env->startPush('css'); ?>
 	<style type="text/css">
         table.table-fixedheader {
             width: 100%;
@@ -46,26 +44,26 @@
         	z-index: -1;
         }
     </style>
-@endpush
+<?php $__env->stopPush(); ?>
 
-@section('content')
+<?php $__env->startSection('content'); ?>
 
-	@include('includes.header')
+	<?php echo $__env->make('includes.header', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 	<?php $state = ""; $readonly = ""; ?>
-	@foreach ($userProgramAccess as $access)
-		@if ($access->program_code == Config::get('constants.MODULE_CODE_WBS'))  <!-- Please update "2001" depending on the corresponding program_code -->
-			@if ($access->read_write == "2")
+	<?php foreach($userProgramAccess as $access): ?>
+		<?php if($access->program_code == Config::get('constants.MODULE_CODE_WBS')): ?>  <!-- Please update "2001" depending on the corresponding program_code -->
+			<?php if($access->read_write == "2"): ?>
 			<?php $state = "disabled"; $readonly = "readonly"; ?>
-			@endif
-		@endif
-	@endforeach
+			<?php endif; ?>
+		<?php endif; ?>
+	<?php endforeach; ?>
 
 	
 	<div class="page-content">
 		<div class="row">
 			<div class="col-md-12">
 				<!-- BEGIN EXAMPLE TABLE PORTLET-->
-				@include('includes.message-block')
+				<?php echo $__env->make('includes.message-block', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 
 				<input type="text" id="hd_barcode" name="hd_barcode" />
 				<div class="portlet box blue" >
@@ -110,9 +108,10 @@
 													<input type="hidden" name="recid" id="recid">
 												</div>
 											</div>
-											<form class="form-horizontal" method="POST" action="{{url('/sakidashi-issuance/searchpo')}}" id="searchPOform">
+											<form class="form-horizontal" method="POST" action="<?php echo e(url('/sakidashi-issuance/searchpo')); ?>" id="searchPOform">
 												<div class="form-group">
-													{!! csrf_field() !!}
+													<?php echo csrf_field(); ?>
+
 													<label class="control-label col-md-3 input-sm">PO No.</label>
 													<div class="col-md-9">
 														<div class="input-group">
@@ -340,31 +339,32 @@
 
 
 
-	@include('includes.sakidashi-modal')
-	@include('includes.modals')
-@endsection
+	<?php echo $__env->make('includes.sakidashi-modal', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+	<?php echo $__env->make('includes.modals', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+<?php $__env->stopSection(); ?>
 
-@push('script')
+<?php $__env->startPush('script'); ?>
 	<script type="text/javascript">
-		var saveIssuanceURL = "{{ url('/sakidashi-issuance/wbssisave') }}";
-		var fifoReasonURL = "{{ url('/material-kitting/fiforeason') }}";
-		var ExportToExcelURL = "{{ url('/sakidashi-issuance/export-to-excel')  }}";
-		var issuanceSheetURL = "{{ url('/sakidashi-issuance/issuance-sheet') }}";
-		var printBarcodeURL = "{{ url('/sakidashi-issuance/print-barcode') }}";
-		var getTransCodeURL = "{{ url('/sakidashi-issuance/get-transcode') }}"
-		var historyURL = "{{ url('/sakidashi-issuance/get-history') }}";
-		var searchURL = "{{ url('/sakidashi-issuance/search') }}";
-		var navigationURL = "{{ url('/sakidashi-issuance/navigate') }}";
-		var cancelPOURL = "{{ url('/sakidashi-issuance/cancel-po') }}";
-		var fifoURL = "{{ url('/sakidashi-issuance/fifo') }}";
-		var checkInPOURL = "{{ url('/sakidashi-issuance/checkinpo') }}";
-		var checkInFifioURL = "{{ url('/sakidashi-issuance/checkinfifo') }}";
-		var getLatestURL = "{{ url('/sakidashi-issuance/get-latest') }}";
-		var getSakidashiDataURL = "{{ url('/sakidashi-issuance/get-sakidashi-data') }}";
-		var token = "{{ Session::token() }}";
-		var access_state = "{{ $pgaccess }}";
-		var pcode = "{{ $pgcode }}";
+		var saveIssuanceURL = "<?php echo e(url('/sakidashi-issuance/wbssisave')); ?>";
+		var fifoReasonURL = "<?php echo e(url('/material-kitting/fiforeason')); ?>";
+		var ExportToExcelURL = "<?php echo e(url('/sakidashi-issuance/export-to-excel')); ?>";
+		var issuanceSheetURL = "<?php echo e(url('/sakidashi-issuance/issuance-sheet')); ?>";
+		var printBarcodeURL = "<?php echo e(url('/sakidashi-issuance/print-barcode')); ?>";
+		var getTransCodeURL = "<?php echo e(url('/sakidashi-issuance/get-transcode')); ?>"
+		var historyURL = "<?php echo e(url('/sakidashi-issuance/get-history')); ?>";
+		var searchURL = "<?php echo e(url('/sakidashi-issuance/search')); ?>";
+		var navigationURL = "<?php echo e(url('/sakidashi-issuance/navigate')); ?>";
+		var cancelPOURL = "<?php echo e(url('/sakidashi-issuance/cancel-po')); ?>";
+		var fifoURL = "<?php echo e(url('/sakidashi-issuance/fifo')); ?>";
+		var checkInPOURL = "<?php echo e(url('/sakidashi-issuance/checkinpo')); ?>";
+		var checkInFifioURL = "<?php echo e(url('/sakidashi-issuance/checkinfifo')); ?>";
+		var getLatestURL = "<?php echo e(url('/sakidashi-issuance/get-latest')); ?>";
+		var getSakidashiDataURL = "<?php echo e(url('/sakidashi-issuance/get-sakidashi-data')); ?>";
+		var token = "<?php echo e(Session::token()); ?>";
+		var access_state = "<?php echo e($pgaccess); ?>";
+		var pcode = "<?php echo e($pgcode); ?>";
 	</script>
-	<script src="{{ asset(config('constants.PUBLIC_PATH').'assets/global/scripts/common.js') }}" type="text/javascript"></script>
-	<script src="{{ asset(config('constants.PUBLIC_PATH').'assets/global/scripts/sakidashiissuance.js') }}" type="text/javascript"></script>
-@endpush
+	<script src="<?php echo e(asset(config('constants.PUBLIC_PATH').'assets/global/scripts/common.js')); ?>" type="text/javascript"></script>
+	<script src="<?php echo e(asset(config('constants.PUBLIC_PATH').'assets/global/scripts/sakidashiissuance.js')); ?>" type="text/javascript"></script>
+<?php $__env->stopPush(); ?>
+<?php echo $__env->make('layouts.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

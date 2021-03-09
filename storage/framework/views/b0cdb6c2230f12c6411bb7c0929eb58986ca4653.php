@@ -1,10 +1,8 @@
-@extends('layouts.master')
-
-@section('title')
+<?php $__env->startSection('title'); ?>
 	WBS | Pricon Microelectronics, Inc.
-@endsection
+<?php $__env->stopSection(); ?>
 
-@push('css')
+<?php $__env->startPush('css'); ?>
 	<style type="text/css">
         table.table-fixedheader {
             width: 100%;
@@ -51,19 +49,19 @@
 		    z-index: -1;
         }*/
     </style>
-@endpush
+<?php $__env->stopPush(); ?>
 
-@section('content')
+<?php $__env->startSection('content'); ?>
 
-	@include('includes.header')
+	<?php echo $__env->make('includes.header', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 	<?php $state = ""; $readonly = ""; ?>
-	@foreach ($userProgramAccess as $access)
-		@if ($access->program_code == Config::get('constants.MODULE_CODE_WBS'))  <!-- Please update "2001" depending on the corresponding program_code -->
-			@if ($access->read_write == "2")
+	<?php foreach($userProgramAccess as $access): ?>
+		<?php if($access->program_code == Config::get('constants.MODULE_CODE_WBS')): ?>  <!-- Please update "2001" depending on the corresponding program_code -->
+			<?php if($access->read_write == "2"): ?>
 			<?php $state = "disabled"; $readonly = "readonly"; ?>
-			@endif
-		@endif
-	@endforeach
+			<?php endif; ?>
+		<?php endif; ?>
+	<?php endforeach; ?>
 
 
     
@@ -71,7 +69,7 @@
         <div class="row">
             <div class="col-md-12">
                 <!-- BEGIN EXAMPLE TABLE PORTLET-->
-                @include('includes.message-block')
+                <?php echo $__env->make('includes.message-block', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
                 <div class="portlet box blue" >
                     <div class="portlet-title">
                         <div class="caption">
@@ -118,8 +116,9 @@
                                 <div class="form-group row">
                                     <label class="control-label col-md-3">PO No.</label>
                                     <div class="col-md-6">
-                                        <form method="POST" action="{{url('/material-kitting/searchpo')}}" id="searchpoForm">
-                                            {!! csrf_field() !!}
+                                        <form method="POST" action="<?php echo e(url('/material-kitting/searchpo')); ?>" id="searchpoForm">
+                                            <?php echo csrf_field(); ?>
+
                                             <div class="input-group">
                                                 <input type="text" class="form-control input-sm add" id="searchpono" name="po" maxlength="15">
                                                 <span class="input-group-btn">
@@ -294,7 +293,7 @@
                                                         <i class="fa fa-plus"></i> Add Details
                                                     </a>
 
-                                                    <a href="javascript:;" class="btn grey-gallery input-sm" id="btn_update_issuance_details" action="{{url('/material-kitting/savekitdetails')}}">
+                                                    <a href="javascript:;" class="btn grey-gallery input-sm" id="btn_update_issuance_details" action="<?php echo e(url('/material-kitting/savekitdetails')); ?>">
                                                         <i class="fa fa-floppy-o"></i> Update Details
                                                     </a>
 
@@ -315,12 +314,12 @@
                                 <button type="button" class="btn green input-sm" id="btn_addPO" onclick="javascript:setControl('ADD');">
                                     <i class="fa fa-plus"></i> Add New
                                 </button>
-                                <button type="button" class="btn btn-primary input-sm" id="btn_save" action="{{url('/material-kitting/savekitdetails')}}">
+                                <button type="button" class="btn btn-primary input-sm" id="btn_save" action="<?php echo e(url('/material-kitting/savekitdetails')); ?>">
                                     <i class="fa fa-floppy-o"></i> Save Issuance
                                 </button>
-                                {{-- <button type="button" class="btn btn-primary input-sm" id="btn_saveIssueance">
+                                <?php /* <button type="button" class="btn btn-primary input-sm" id="btn_saveIssueance">
                                     <i class="fa fa-floppy-o"></i> Save Issuance
-                                </button> --}}
+                                </button> */ ?>
                                 <button type="button" id="btn_edit" class="btn blue-madison input-sm" onclick="javascript:setControl('EDIT');">
                                     <i class="fa fa-pencil"></i> Edit
                                 </button>
@@ -345,29 +344,30 @@
 
 
 
-    @include('includes.materialkitting-modal')
-    @include('includes.modals')
-@endsection
-@push('script')
+    <?php echo $__env->make('includes.materialkitting-modal', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+    <?php echo $__env->make('includes.modals', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+<?php $__env->stopSection(); ?>
+<?php $__env->startPush('script'); ?>
     <script type="text/javascript">
-        var token = "{{ Session::token() }}";
-        var currentUser = "{{ Auth::user()->user_id }}";
-        var materialKittingDataURL = "{{ url('material-kitting/wbsmaterialkittingdata') }}";
-        var kittingListURL = "{{ url('material-kitting/kitting-list') }}";
-        var transferSlipURL = "{{ url('material-kitting/transfer-slip') }}";
-        var DeleteIssDetailsURL = "{{ url('material-kitting/delete-issdetails') }}";
-        var DeleteKitDetailsURL = "{{ url('material-kitting/delete-kitdetails') }}";
-        var CancelPoURL = "{{ url('material-kitting/cancel-po') }}";
-        var getItemAndLotnumFifoURL = "{{ url('material-kitting/item-lot-fifo') }}";
-        var checkIssuedQtyURL = "{{ url('material-kitting/check-issued-qty') }}";
-        var searchFilterURL = "{{ url('material-kitting/search-filter') }}";
-        var printBarCodeURL = "{{ url('material-kitting/brprint') }}";
-        var fifoReasonURL = "{{ url('material-kitting/fiforeason') }}";
-        var reasonLogsURL = "{{ url('material-kitting/reasonlogs') }}";
-        var KitDetailsURL = "{{ url('material-kitting/kitdata') }}";
-        var access_state = "{{ $pgaccess }}";
-        var pcode = "{{ $pgcode }}";
+        var token = "<?php echo e(Session::token()); ?>";
+        var currentUser = "<?php echo e(Auth::user()->user_id); ?>";
+        var materialKittingDataURL = "<?php echo e(url('material-kitting/wbsmaterialkittingdata')); ?>";
+        var kittingListURL = "<?php echo e(url('material-kitting/kitting-list')); ?>";
+        var transferSlipURL = "<?php echo e(url('material-kitting/transfer-slip')); ?>";
+        var DeleteIssDetailsURL = "<?php echo e(url('material-kitting/delete-issdetails')); ?>";
+        var DeleteKitDetailsURL = "<?php echo e(url('material-kitting/delete-kitdetails')); ?>";
+        var CancelPoURL = "<?php echo e(url('material-kitting/cancel-po')); ?>";
+        var getItemAndLotnumFifoURL = "<?php echo e(url('material-kitting/item-lot-fifo')); ?>";
+        var checkIssuedQtyURL = "<?php echo e(url('material-kitting/check-issued-qty')); ?>";
+        var searchFilterURL = "<?php echo e(url('material-kitting/search-filter')); ?>";
+        var printBarCodeURL = "<?php echo e(url('material-kitting/brprint')); ?>";
+        var fifoReasonURL = "<?php echo e(url('material-kitting/fiforeason')); ?>";
+        var reasonLogsURL = "<?php echo e(url('material-kitting/reasonlogs')); ?>";
+        var KitDetailsURL = "<?php echo e(url('material-kitting/kitdata')); ?>";
+        var access_state = "<?php echo e($pgaccess); ?>";
+        var pcode = "<?php echo e($pgcode); ?>";
     </script>
-    <script src="{{ asset(config('constants.PUBLIC_PATH').'assets/global/scripts/common.js') }}" type="text/javascript"></script>
-    <script src="{{ asset(config('constants.PUBLIC_PATH').'assets/global/scripts/materialkitting.js') }}" type="text/javascript"></script>
-@endpush
+    <script src="<?php echo e(asset(config('constants.PUBLIC_PATH').'assets/global/scripts/common.js')); ?>" type="text/javascript"></script>
+    <script src="<?php echo e(asset(config('constants.PUBLIC_PATH').'assets/global/scripts/materialkitting.js')); ?>" type="text/javascript"></script>
+<?php $__env->stopPush(); ?>
+<?php echo $__env->make('layouts.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

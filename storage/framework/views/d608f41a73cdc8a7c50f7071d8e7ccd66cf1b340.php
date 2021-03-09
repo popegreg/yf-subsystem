@@ -1,22 +1,20 @@
-@extends('layouts.master')
-
-@section('title')
+<?php $__env->startSection('title'); ?>
 	WBS | Pricon Microelectronics, Inc.
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('content')
+<?php $__env->startSection('content'); ?>
 
 	<?php $state = ""; $readonly = ""; ?>
-	@foreach ($userProgramAccess as $access)
-		@if ($access->program_code == Config::get('constants.MODULE_CODE_WBS'))  <!-- Please update "2001" depending on the corresponding program_code -->
-			@if ($access->read_write == "2")
+	<?php foreach($userProgramAccess as $access): ?>
+		<?php if($access->program_code == Config::get('constants.MODULE_CODE_WBS')): ?>  <!-- Please update "2001" depending on the corresponding program_code -->
+			<?php if($access->read_write == "2"): ?>
 			<?php $state = "disabled"; $readonly = "readonly"; ?>
-			@endif
-		@endif
-	@endforeach
+			<?php endif; ?>
+		<?php endif; ?>
+	<?php endforeach; ?>
 	
 	<div class="page-content">
-		@include('includes.message-block')
+		<?php echo $__env->make('includes.message-block', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 		<div class="portlet box blue" >
 			<div class="portlet-title">
 				<div class="caption">
@@ -233,25 +231,27 @@
 
 	</div>
 
-	@include('includes.materialissuance-modal')
-	@include('includes.modals')
-@endsection
+	<?php echo $__env->make('includes.materialissuance-modal', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+	<?php echo $__env->make('includes.modals', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+<?php $__env->stopSection(); ?>
 
-@push('script')
+<?php $__env->startPush('script'); ?>
 <script type="text/javascript">
-	var token = "{{Session::token()}}";
-	var getPedingRequestURL = "{{ url('/whs-issuance/pending-requests') }}";
-	var viewReqDetailsURL = "{{ url('/whs-issuance/view-details') }}";
-	var getRequestDetails = "{{ url('/whs-issuance/request-details') }}";
-	var getInventoryURL = "{{ url('/whs-issuance/get-inventory') }}";
-	var saveURL = "{{ url('/whs-issuance/save') }}";
-	var getDataURL = "{{ url('/whs-issuance/get-data') }}";
-	var excelPDF = "{{ url('/whs-issuance/get-excel') }}";
-	var pdfURL = "{{ url('/whs-issuance/get-pdf') }}";
-	var printBarCodeURL = "{{ url('/whs-issuance/print-barcode') }}";
-	var access_state = "{{ $pgaccess }}";
-    var pcode = "{{ $pgcode }}";
+	var token = "<?php echo e(Session::token()); ?>";
+	var getPedingRequestURL = "<?php echo e(url('/whs-issuance/pending-requests')); ?>";
+	var viewReqDetailsURL = "<?php echo e(url('/whs-issuance/view-details')); ?>";
+	var getRequestDetails = "<?php echo e(url('/whs-issuance/request-details')); ?>";
+	var getInventoryURL = "<?php echo e(url('/whs-issuance/get-inventory')); ?>";
+	var saveURL = "<?php echo e(url('/whs-issuance/save')); ?>";
+	var getDataURL = "<?php echo e(url('/whs-issuance/get-data')); ?>";
+	var excelPDF = "<?php echo e(url('/whs-issuance/get-excel')); ?>";
+	var pdfURL = "<?php echo e(url('/whs-issuance/get-pdf')); ?>";
+	var printBarCodeURL = "<?php echo e(url('/whs-issuance/print-barcode')); ?>";
+	var access_state = "<?php echo e($pgaccess); ?>";
+    var pcode = "<?php echo e($pgcode); ?>";
 </script>
-<script src="{{ asset(config('constants.PUBLIC_PATH').'assets/global/scripts/common.js') }}" type="text/javascript"></script>
-<script src="{{ asset(config('constants.PUBLIC_PATH').'assets/global/scripts/whsissuance.js') }}" type="text/javascript"></script>
-@endpush
+<script src="<?php echo e(asset(config('constants.PUBLIC_PATH').'assets/global/scripts/common.js')); ?>" type="text/javascript"></script>
+<script src="<?php echo e(asset(config('constants.PUBLIC_PATH').'assets/global/scripts/whsissuance.js')); ?>" type="text/javascript"></script>
+<?php $__env->stopPush(); ?>
+
+<?php echo $__env->make('layouts.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

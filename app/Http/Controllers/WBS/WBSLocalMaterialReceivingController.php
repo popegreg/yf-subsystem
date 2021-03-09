@@ -42,14 +42,18 @@ class WBSLocalMaterialReceivingController extends Controller
 
     public function index()
     {
-        if(!$this->com->getAccessRights(Config::get('constants.MODULE_CODE_lOCMAT'), $userProgramAccess))
+        $pgcode = Config::get('constants.MODULE_CODE_lOCMAT');
+
+        if(!$this->com->getAccessRights($pgcode, $userProgramAccess))
         {
             return redirect('/home');
         }
         else
         {
             return view('wbs.materialreceivinglocal', [
-                        'userProgramAccess' => $userProgramAccess
+                        'userProgramAccess' => $userProgramAccess,
+                        'pgcode' => $pgcode,
+                        'pgaccess' => $this->com->getPgAccess($pgcode)
                     ]);
         }
     }

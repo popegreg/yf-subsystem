@@ -289,37 +289,67 @@ function clear() {
 }
 
 function viewState() {
-	$('#btn_first').prop('disabled', false);
-	$('#btn_prv').prop('disabled', false);
-	$('#btn_nxt').prop('disabled', false);
-	$('#btn_last').prop('disabled', false);
-	$('#btn_search_po').prop('disabled', true);
+	if (parseInt(access_state) !== 2) {
+		$('#btn_first').prop('disabled', false);
+		$('#btn_prv').prop('disabled', false);
+		$('#btn_nxt').prop('disabled', false);
+		$('#btn_last').prop('disabled', false);
+		$('#btn_search_po').prop('disabled', true);
 
-	$('#btn_add_req').show();
-	$('#btn_save_req').hide();
+		$('#btn_add_req').show();
+		$('#btn_save_req').hide();
 
-	if ($('#statuspmr').val() == 'Cancelled') {
-		$('#btn_edit_req').hide();
+		if ($('#statuspmr').val() == 'Cancelled') {
+			$('#btn_edit_req').hide();
+		} else {
+			$('#btn_edit_req').show();
+		}
+		
+		$('#btn_cancel_req').hide();
+		$('#btn_discard_req').hide();
+		$('#btn_search_req').show();
+		$('#btn_pdf_req').show();
+
+		$('#btn_add_details').hide();
+		$('#btn_delete_details').hide();
+
+		$('#req_no').prop('readonly',false);
+		$('#po').prop('readonly',true);
+		$('#prod_destination').prop('disabled',true);
+		$('#line_destination').prop('disabled',true);
+		$('#remarkspmr').prop('readonly',true);
+
+		$('.btn_edit_req_item').prop('disabled', true);
+		$('.btn_acknowledge_item').prop('disabled', true);
 	} else {
-		$('#btn_edit_req').show();
+		$('#btn_first').prop('disabled', false);
+		$('#btn_prv').prop('disabled', false);
+		$('#btn_nxt').prop('disabled', false);
+		$('#btn_last').prop('disabled', false);
+		$('#btn_search_po').prop('disabled', true);
+
+		$('#btn_add_req').hide();
+		$('#btn_save_req').hide();
+
+		$('#btn_edit_req').hide();
+
+		$('#btn_cancel_req').hide();
+		$('#btn_discard_req').hide();
+		$('#btn_search_req').show();
+		$('#btn_pdf_req').show();
+
+		$('#btn_add_details').hide();
+		$('#btn_delete_details').hide();
+
+		$('#req_no').prop('readonly', false);
+		$('#po').prop('readonly', true);
+		$('#prod_destination').prop('disabled', true);
+		$('#line_destination').prop('disabled', true);
+		$('#remarkspmr').prop('readonly', true);
+
+		$('.btn_edit_req_item').prop('disabled', true);
+		$('.btn_acknowledge_item').prop('disabled', true);
 	}
-	
-	$('#btn_cancel_req').hide();
-	$('#btn_discard_req').hide();
-	$('#btn_search_req').show();
-	$('#btn_pdf_req').show();
-
-	$('#btn_add_details').hide();
-	$('#btn_delete_details').hide();
-
-	$('#req_no').prop('readonly',false);
-	$('#po').prop('readonly',true);
-	$('#prod_destination').prop('disabled',true);
-	$('#line_destination').prop('disabled',true);
-	$('#remarkspmr').prop('readonly',true);
-
-	$('.btn_edit_req_item').prop('disabled', true);
-	$('.btn_acknowledge_item').prop('disabled', true);
 }
 
 function addState() {

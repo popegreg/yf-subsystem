@@ -248,22 +248,41 @@ function getItemDetails(issuanceno) {
 }
 
 function viewState() {
-	$('#controlno').prop('readonly', false);
-	$('#po').prop('readonly', true);
-	$('#date_returned').prop('readonly', true);
-	$('#remarks').prop('readonly', true);
-	$('#returned_by').prop('readonly', true);
+	if (parseInt(access_state) !== 2) {
+		$('#controlno').prop('readonly', false);
+		$('#po').prop('readonly', true);
+		$('#date_returned').prop('disabled', true);
+		$('#remarks').prop('readonly', true);
+		$('#returned_by').prop('readonly', true);
 
-	$('#btn_add').show();
-	$('#btn_edit').show();
-	$('#btn_save').hide();
-	$('#btn_back').hide();
-	$('#btn_search').show();
-	$('#btn_excel').show();
+		$('#btn_add').show();
+		$('#btn_edit').show();
+		$('#btn_save').hide();
+		$('#btn_back').hide();
+		$('#btn_search').show();
+		$('#btn_excel').show();
 
-	$('#btn_add_details').hide();
-	$('#btn_delete_details').hide();
-	$('#btn_delete_control').hide();
+		$('#btn_add_details').hide();
+		$('#btn_delete_details').hide();
+		$('#btn_delete_control').hide();
+	} else {
+		$('#controlno').prop('readonly', false);
+		$('#po').prop('readonly', true);
+		$('#date_returned').prop('disabled', true);
+		$('#remarks').prop('readonly', true);
+		$('#returned_by').prop('readonly', true);
+
+		$('#btn_add').hide();
+		$('#btn_edit').hide();
+		$('#btn_save').hide();
+		$('#btn_back').hide();
+		$('#btn_search').show();
+		$('#btn_excel').show();
+
+		$('#btn_add_details').hide();
+		$('#btn_delete_details').hide();
+		$('#btn_delete_control').hide();
+	}
 }
 
 function addState() {

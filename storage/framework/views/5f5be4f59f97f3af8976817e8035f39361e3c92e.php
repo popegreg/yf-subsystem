@@ -272,6 +272,9 @@
         var getPackageCategoryURL= "<?php echo e(url('/wbslocpackagecategory')); ?>";
         var DeleteBatchItemURL = "<?php echo e(url('/wbslocaldeletebatchitem')); ?>";
         var getTotalURL = "<?php echo e(url('/wbslocgettotal')); ?>";
+        var access_state = "<?php echo e($pgaccess); ?>";
+        var pcode = "<?php echo e($pgcode); ?>";
+        
     </script>
     <script src="<?php echo e(asset(config('constants.PUBLIC_PATH').'assets/global/scripts/common.js')); ?>" type="text/javascript"></script>
     <script src="<?php echo e(asset(config('constants.PUBLIC_PATH').'assets/global/scripts/localreceiving.js')); ?>" type="text/javascript"></script>

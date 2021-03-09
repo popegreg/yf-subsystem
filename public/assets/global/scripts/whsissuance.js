@@ -321,7 +321,14 @@ function makeViewDetailsTable(arr) {
 			{ data: 'requestqty' },
 			{ data: 'servedqty' },
 			{ data: 'last_served_date' },
-        ]
+        ],
+        initComplete: function() {
+			if (parseInt(access_state) !== 2) {
+				$('.check_item_detail').prop('disabled', false);
+			} else {
+				$('.check_item_detail').prop('disabled', true);
+			}
+		}
     });
 }
 
@@ -542,35 +549,63 @@ function switchToSummary() {
 }
 
 function viewState() {
-	$('#btn_first').prop('disabled', false);
-	$('#btn_prv').prop('disabled', false);
-	$('#btn_nxt').prop('disabled', false);
-	$('#btn_last').prop('disabled', false);
+	if (parseInt(access_state) !== 2) {
+		$('#btn_first').prop('disabled', false);
+		$('#btn_prv').prop('disabled', false);
+		$('#btn_nxt').prop('disabled', false);
+		$('#btn_last').prop('disabled', false);
 
-	$('#issuance_no').prop('readonly', false);
-	$('#req_no').prop('readonly', true);
-	$('#status').prop('readonly', true);
-	$('#created_by').prop('readonly', true);
-	$('#created_at').prop('readonly', true);
-	$('#total_req_qty').prop('readonly', true);
-	$('#updated_by').prop('readonly', true);
-	$('#updated_at').prop('readonly', true);
-	$('#total_bal_qty').prop('readonly', true);
+		$('#issuance_no').prop('readonly', false);
+		$('#req_no').prop('readonly', true);
+		$('#status').prop('readonly', true);
+		$('#created_by').prop('readonly', true);
+		$('#created_at').prop('readonly', true);
+		$('#total_req_qty').prop('readonly', true);
+		$('#updated_by').prop('readonly', true);
+		$('#updated_at').prop('readonly', true);
+		$('#total_bal_qty').prop('readonly', true);
 
-	if ($('#status').val() == 'Serving') {
-		$('#btn_edit').show();
+		if ($('#status').val() == 'Serving') {
+			$('#btn_edit').show();
+		} else {
+			$('#btn_edit').hide();
+		}
+
+		$('#btn_save').hide();
+		$('#btn_cancel').hide();
+		$('#btn_discard').hide();
+		$('#btn_search').show();
+		$('#btn_report_excel').show();
+		$('#btn_report_pdf').show();
+
+		$('.btn_edit_issuance_details').prop('disabled', true);
 	} else {
+		$('#btn_first').prop('disabled', false);
+		$('#btn_prv').prop('disabled', false);
+		$('#btn_nxt').prop('disabled', false);
+		$('#btn_last').prop('disabled', false);
+
+		$('#issuance_no').prop('readonly', false);
+		$('#req_no').prop('readonly', true);
+		$('#status').prop('readonly', true);
+		$('#created_by').prop('readonly', true);
+		$('#created_at').prop('readonly', true);
+		$('#total_req_qty').prop('readonly', true);
+		$('#updated_by').prop('readonly', true);
+		$('#updated_at').prop('readonly', true);
+		$('#total_bal_qty').prop('readonly', true);
+
 		$('#btn_edit').hide();
+
+		$('#btn_save').hide();
+		$('#btn_cancel').hide();
+		$('#btn_discard').hide();
+		$('#btn_search').show();
+		$('#btn_report_excel').show();
+		$('#btn_report_pdf').show();
+
+		$('.btn_edit_issuance_details').prop('disabled', true);
 	}
-
-	$('#btn_save').hide();
-	$('#btn_cancel').hide();
-	$('#btn_discard').hide();
-	$('#btn_search').show();
-	$('#btn_report_excel').show();
-	$('#btn_report_pdf').show();
-
-	$('.btn_edit_issuance_details').prop('disabled', true);
 }
 
 function addState() {

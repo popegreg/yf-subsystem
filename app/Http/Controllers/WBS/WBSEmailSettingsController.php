@@ -49,14 +49,20 @@ class WBSEmailSettingsController extends Controller
     public function getEmailSettings(Request $req)
     {
     	$common = new CommonController;
-        if(!$common->getAccessRights(Config::get('constants.MODULE_CODE_EMAIL'), $userProgramAccess))
+        $pgcode = Config::get('constants.MODULE_CODE_EMAIL');
+
+        if(!$common->getAccessRights($pgcode, $userProgramAccess))
         {
             return redirect('/home');
         }
         else
         {
-        	# Render WBS Page.
-            return view('wbs.emailsettings',['userProgramAccess' => $userProgramAccess]);
+            # Render WBS Page.
+            return view('wbs.emailsettings',[
+                        'userProgramAccess' => $userProgramAccess,
+                        'pgcode' => $pgcode,
+                        'pgaccess' => $common->getPgAccess($pgcode)
+                    ]);
         }
     }
 

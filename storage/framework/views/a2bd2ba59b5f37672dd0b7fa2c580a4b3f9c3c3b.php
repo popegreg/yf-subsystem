@@ -1,4 +1,3 @@
-
 <?php
 /*******************************************************************************
      Copyright (c) Company Nam All rights reserved.
@@ -16,24 +15,24 @@
 *******************************************************************************/
 ?>
 
-@extends('layouts.master')
 
-@section('title')
+
+<?php $__env->startSection('title'); ?>
     WBS | Pricon Microelectronics, Inc.
-@endsection
+<?php $__env->stopSection(); ?>
 
 
-@section('content')
+<?php $__env->startSection('content'); ?>
 
-@include('includes.header')
+<?php echo $__env->make('includes.header', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
     <?php $state = ""; $readonly = ""; ?>
-    @foreach ($userProgramAccess as $access)
-        @if ($access->program_code == Config::get('constants.MODULE_CODE_IQCINS'))
-            @if ($access->read_write == "2")
+    <?php foreach($userProgramAccess as $access): ?>
+        <?php if($access->program_code == Config::get('constants.MODULE_CODE_IQCINS')): ?>
+            <?php if($access->read_write == "2"): ?>
                 <?php $state = "disabled"; $readonly = "readonly"; ?>
-            @endif
-        @endif
-    @endforeach
+            <?php endif; ?>
+        <?php endif; ?>
+    <?php endforeach; ?>
 
 
     <div class="page-content">
@@ -42,7 +41,7 @@
         <div class="row">
             <div class="col-md-12">
                 <!-- BEGIN EXAMPLE TABLE PORTLET-->
-                @include('includes.message-block')
+                <?php echo $__env->make('includes.message-block', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 
                 <div class="portlet box blue" >
                     <div class="portlet-title">
@@ -186,7 +185,8 @@
                     <div class="row">
                         <div class="col-md-12">
                             <form  class="form-horizontal" id="statusmdl">
-                                {{ csrf_field() }}
+                                <?php echo e(csrf_field()); ?>
+
 
                                 <div class="form-group">
                                     <label class="control-label col-sm-3">Status</label>
@@ -202,7 +202,7 @@
                                 <div class="form-group">
                                     <label class="control-label col-sm-3">Inspector</label>
                                     <div class="col-sm-8">
-                                        <input type="text" name="inspector" id="inspector" class="form-control input-sm" value="{{ Auth::user()->user_id }}">
+                                        <input type="text" name="inspector" id="inspector" class="form-control input-sm" value="<?php echo e(Auth::user()->user_id); ?>">
                                     </div>
                                 </div>
 
@@ -244,7 +244,8 @@
                     <div class="row">
                         <div class="col-md-12">
                             <form  class="form-horizontal">
-                                {{ csrf_field() }}
+                                <?php echo e(csrf_field()); ?>
+
 
                                 <div class="form-group">
                                     <label class="control-label col-sm-3">Status</label>
@@ -260,7 +261,7 @@
                                 <div class="form-group">
                                     <label class="control-label col-sm-3">Inspector</label>
                                     <div class="col-sm-8">
-                                        <input type="text" name="inspectorbulk" id="inspectorbulk" class="form-control input-sm" value="{{ Auth::user()->user_id }}">
+                                        <input type="text" name="inspectorbulk" id="inspectorbulk" class="form-control input-sm" value="<?php echo e(Auth::user()->user_id); ?>">
                                     </div>
                                 </div>
 
@@ -298,7 +299,7 @@
                     <div class="row">
                         <div class="col-sm-2"></div>
                         <div class="col-sm-8">
-                            <img src="{{ asset('public/assets/images/ajax-loader.gif') }}" class="img-responsive">
+                            <img src="<?php echo e(asset('public/assets/images/ajax-loader.gif')); ?>" class="img-responsive">
                         </div>
                         <div class="col-sm-2"></div>
                     </div>
@@ -322,12 +323,12 @@
             </div>
         </div>
     </div>
-@endsection
+<?php $__env->stopSection(); ?>
 
-@push('script')
+<?php $__env->startPush('script'); ?>
 	<script type="text/javascript">
 		$(function() {
-            loadforIQC("{{url('/getwbsiqc')}}"+"?status=0");
+            loadforIQC("<?php echo e(url('/getwbsiqc')); ?>"+"?status=0");
 			$('.datepicker').datepicker({
 				dateFormat: 'yy-mm-dd'
 			});
@@ -351,8 +352,8 @@
 			});
 
 			$('#updateIQCstatusbtn').on('click', function() {
-				var url = '{{url("/postwbsiqcsingleupdate")}}';
-	            var token = "{{ Session::token() }}";
+				var url = '<?php echo e(url("/postwbsiqcsingleupdate")); ?>';
+	            var token = "<?php echo e(Session::token()); ?>";
 	            var id = $('#selectedid').val();
 	            var statusup = $('#statusup').val();
 	            var iqcresup = $('#iqcresup').val();
@@ -372,7 +373,7 @@
 	                data: data,
 	            }).done( function(data, textStatus, jqXHR) {
                     console.log(data);
-	            	loadforIQC("{{url('/getwbsiqc')}}"+"?status=0");
+	            	loadforIQC("<?php echo e(url('/getwbsiqc')); ?>"+"?status=0");
 	            	isCheck($('#chk_all'))
 	            }).fail( function(data, textStatus, jqXHR) {
 	            	$('#loading').modal('hide');
@@ -388,8 +389,8 @@
 
 			$('#updateIQCbulkbtn').on('click', function() {
 				var ids = getAllChecked();
-				var url = '{{url("/postwbsiqcupdatebulk")}}';
-	            var token = "{{ Session::token() }}";
+				var url = '<?php echo e(url("/postwbsiqcupdatebulk")); ?>';
+	            var token = "<?php echo e(Session::token()); ?>";
 	            var statusup = $('#statusupbulk').val();
 	            var iqcresup = $('#iqcresupbulk').val();
                 var inspector = $('#inspectorbulk').val();
@@ -413,7 +414,7 @@
 		                data: data,
 		            }).done( function(data, textStatus, jqXHR) {
                         console.log(data);
-		            	loadforIQC("{{url('/getwbsiqc')}}"+"?status=0");
+		            	loadforIQC("<?php echo e(url('/getwbsiqc')); ?>"+"?status=0");
 		            	isCheck($('#chk_all'))
 		            }).fail( function(data, textStatus, jqXHR) {
 		            	$('#loading').modal('hide');
@@ -488,8 +489,8 @@
 		}
 
 		function searchstatus() {
-            var token = "{{ Session::token() }}";
-			loadforIQC('{{url("/getwbsiqcsearch")}}'+'?_token='+token+
+            var token = "<?php echo e(Session::token()); ?>";
+			loadforIQC('<?php echo e(url("/getwbsiqcsearch")); ?>'+'?_token='+token+
                                                         '&&from='+$('#from').val()+
                                                         '&&to='+$('#to').val()+
                                                         '&&recno='+$('#recno').val()+
@@ -530,4 +531,5 @@
 			}
 		}
 	</script>
-@endpush
+<?php $__env->stopPush(); ?>
+<?php echo $__env->make('layouts.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

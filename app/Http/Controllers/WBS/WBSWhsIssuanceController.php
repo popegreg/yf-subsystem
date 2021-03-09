@@ -40,15 +40,19 @@ class WBSWhsIssuanceController extends Controller
 
     public function index()
     {
-    	if(!$this->com->getAccessRights(Config::get('constants.MODULE_CODE_WHSMATISS'), $userProgramAccess))
+    	$pgcode = Config::get('constants.MODULE_CODE_WHSMATISS');
+
+    	if(!$this->com->getAccessRights($pgcode, $userProgramAccess))
         {
             return redirect('/home');
         }
         else
         {
             return view('wbs.whsissuance',[
-                'userProgramAccess' => $userProgramAccess
-            ]);
+						'userProgramAccess' => $userProgramAccess,
+						'pgcode' => $pgcode,
+                        'pgaccess' => $this->com->getPgAccess($pgcode)
+					]);
         }
     }
 

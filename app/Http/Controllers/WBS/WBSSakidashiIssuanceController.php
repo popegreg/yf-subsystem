@@ -42,13 +42,20 @@ class WBSSakidashiIssuanceController extends Controller
     public function index()
     {
     	$common = new CommonController;
-        if(!$common->getAccessRights(Config::get('constants.MODULE_CODE_SAKIISS'), $userProgramAccess))
+
+        $pgcode = Config::get('constants.MODULE_CODE_SAKIISS');
+
+        if(!$common->getAccessRights($pgcode, $userProgramAccess))
         {
             return redirect('/home');
         }
         else
         {
-            return view('wbs.sakidashiissuance',['userProgramAccess' => $userProgramAccess]);
+            return view('wbs.sakidashiissuance',[
+                'userProgramAccess' => $userProgramAccess,
+                'pgcode' => $pgcode,
+                'pgaccess' => $this->com->getPgAccess($pgcode)
+            ]);
         }
     }
 

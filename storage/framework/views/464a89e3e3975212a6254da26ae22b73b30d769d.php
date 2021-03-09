@@ -1,4 +1,3 @@
-
 <?php
 /*******************************************************************************
      Copyright (c) Company Nam All rights reserved.
@@ -14,24 +13,24 @@
 *******************************************************************************/
 ?>
 
-@extends('layouts.master')
 
-@section('title')
+
+<?php $__env->startSection('title'); ?>
     WBS | Pricon Microelectronics, Inc.
-@endsection
+<?php $__env->stopSection(); ?>
 
 
-@section('content')
+<?php $__env->startSection('content'); ?>
 
-@include('includes.header')
+<?php echo $__env->make('includes.header', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
     <?php $state = ""; $readonly = ""; ?>
-    @foreach ($userProgramAccess as $access)
-        @if ($access->program_code == Config::get('constants.MODULE_CODE_EMAIL'))
-            @if ($access->read_write == "2")
+    <?php foreach($userProgramAccess as $access): ?>
+        <?php if($access->program_code == Config::get('constants.MODULE_CODE_EMAIL')): ?>
+            <?php if($access->read_write == "2"): ?>
                 <?php $state = "disabled"; $readonly = "readonly"; ?>
-            @endif
-        @endif
-    @endforeach
+            <?php endif; ?>
+        <?php endif; ?>
+    <?php endforeach; ?>
 
     
     <div class="page-content">
@@ -40,7 +39,7 @@
         <div class="row">
             <div class="col-md-offset-2 col-md-8">
                 <!-- BEGIN EXAMPLE TABLE PORTLET-->
-                @include('includes.message-block')
+                <?php echo $__env->make('includes.message-block', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 
                 <div class="portlet box blue" >
                     <div class="portlet-title">
@@ -94,7 +93,7 @@
                     <div class="row">
                         <div class="col-sm-2"></div>
                         <div class="col-sm-8">
-                            <img src="{{ asset(Config::get('constants.PUBLIC_PATH').'assets/images/ajax-loader.gif') }}" class="img-responsive">
+                            <img src="<?php echo e(asset(Config::get('constants.PUBLIC_PATH').'assets/images/ajax-loader.gif')); ?>" class="img-responsive">
                         </div>
                         <div class="col-sm-2"></div>
                     </div>
@@ -136,13 +135,13 @@
             </div>
         </div>
     </div>
-@endsection
+<?php $__env->stopSection(); ?>
 
-@push('script')
+<?php $__env->startPush('script'); ?>
     <script type="text/javascript">
-        var token = "{{ Session::token() }}";
-        var access_state = "{{ $pgaccess }}";
-        var pcode = "{{ $pgcode }}";
+        var token = "<?php echo e(Session::token()); ?>";
+        var access_state = "<?php echo e($pgaccess); ?>";
+        var pcode = "<?php echo e($pgcode); ?>";
         $(document).ready(function() {
             loadSettings();
 
@@ -190,8 +189,8 @@
         });
 
         function deleteEmail() {
-            var token = "{{ Session::token() }}";
-            var url = "{{ url('/wbsdemaildelete') }}";
+            var token = "<?php echo e(Session::token()); ?>";
+            var url = "<?php echo e(url('/wbsdemaildelete')); ?>";
             var data = {
                 _token: token,
                 id: $('#delete_id').val()
@@ -223,7 +222,7 @@
             }
             $('#inputbody').html('');
             $.ajax({
-                url: "{{ url('/wbsemaildata') }}",
+                url: "<?php echo e(url('/wbsemaildata')); ?>",
                 type: 'get',
                 dataType: 'JSON',
                 data: data
@@ -309,7 +308,7 @@
             }
 
             $.ajax({
-                url: "{{ url('/wbssaveemailsettings') }}",
+                url: "<?php echo e(url('/wbssaveemailsettings')); ?>",
                 type: 'POST',
                 dataType: 'JSON',
                 data: data
@@ -340,4 +339,6 @@
             $('.clear').val('');
         }
     </script>
-@endpush
+<?php $__env->stopPush(); ?>
+
+<?php echo $__env->make('layouts.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
