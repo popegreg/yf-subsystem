@@ -146,7 +146,8 @@ $( function() {
 						last_served_date: '',
 						location: x.location,
 						remarks:'',
-						acknowledgeby:''
+						acknowledgeby:'',
+						date_time_ack:''
 
 					});
 					count++;
@@ -545,6 +546,10 @@ function makeRequestDetailsTable(arr) {
             		return "";
             	}
             	
+            }, searchable: false, orderable: false },
+
+            { data: function(x) {
+                return x.date_time_ack+"<input type='hidden' name='date_time_ack[]' value='"+x.date_time_ack+"'>";
             }, searchable: false, orderable: false },
         ]
     });

@@ -134,6 +134,7 @@
                 <th>Classification</th>
                 <th>Remarks</th>
                 <th>Acknowledged By</th>
+                <th>Date & Time Acknowledged</th>
             </tr>
         </thead>
         <tbody>
@@ -150,6 +151,7 @@
                         <td>{{ $row->classification }}</td>
                         <td>{{ $row->remarks }}</td>
                         <td>{{ $row->acknowledgeby }}</td>
+                        <td>{{ $row->date_time_ack }}</td>
                     </tr>
             <?php
                 }

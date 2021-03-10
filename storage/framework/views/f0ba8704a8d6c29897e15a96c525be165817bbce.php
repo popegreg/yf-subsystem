@@ -134,6 +134,7 @@
                 <th>Classification</th>
                 <th>Remarks</th>
                 <th>Acknowledged By</th>
+                <th>Date & Time Acknowledged</th>
             </tr>
         </thead>
         <tbody>
@@ -150,6 +151,7 @@
                         <td><?php echo e($row->classification); ?></td>
                         <td><?php echo e($row->remarks); ?></td>
                         <td><?php echo e($row->acknowledgeby); ?></td>
+                        <td><?php echo e($row->date_time_ack); ?></td>
                     </tr>
             <?php
                 }

@@ -146,6 +146,7 @@
             						<td>Last Served Date</td>
             						<td>Remarks</td>
             						<td>Acknowledge By</td>
+                                    <td>Date & Time Acknowledged</td>
             					</tr>
             				</thead>
             				<tbody id="tbl_details_body"></tbody>

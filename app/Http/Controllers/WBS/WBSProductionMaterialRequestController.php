@@ -223,8 +223,8 @@ class WBSProductionMaterialRequestController extends Controller
 	                'requestedby' => Auth::user()->user_id,
 	                'createdby' => Auth::user()->user_id,
 	                'updatedby' => Auth::user()->user_id,
-	                'created_at' => date('Y-m-d h:i:s'),
-	                'updated_at' => date('Y-m-d h:i:s'),
+	                'created_at' => date('Y-m-d H:i:s'),
+	                'updated_at' => date('Y-m-d H:i:s'),
 	                'requested_at' => date('Y-m-d'),
 	            ]);
 
@@ -246,8 +246,8 @@ class WBSProductionMaterialRequestController extends Controller
 	        		'remarks' => $req->remarks[$key],
 	        		'request_date' => date('Y-m-d'),
 	        		'requestedby' => Auth::user()->user_id,
-	        		'created_at' => date('Y-m-d h:i:s'),
-	        		'updated_at' => date('Y-m-d h:i:s'),
+	        		'created_at' => date('Y-m-d H:i:s'),
+	        		'updated_at' => date('Y-m-d H:i:s'),
 	        	]);
 	        }
 
@@ -302,7 +302,7 @@ class WBSProductionMaterialRequestController extends Controller
 		        		'last_served_by' => $whs->last_served_by,
 		        		'last_served_date' => $whs->last_served_date,
 		        		'created_at' => $summary->createdby,
-		        		'updated_at' => date('Y-m-d h:i:s'),
+		        		'updated_at' => date('Y-m-d H:i:s'),
 		        	]);
 		        }
 
@@ -322,7 +322,7 @@ class WBSProductionMaterialRequestController extends Controller
 	                'status' => $this->checkStatus($req->req_no),
 	                'remarks' => $req->remarkspmr,
 	                'updatedby' => Auth::user()->user_id,
-	                'updated_at' => date('Y-m-d h:i:s'),
+	                'updated_at' => date('Y-m-d H:i:s'),
 	                'requested_at' => date('Y-m-d'),
 	            ]);
 
@@ -370,6 +370,7 @@ class WBSProductionMaterialRequestController extends Controller
 									'request_date',
 									'requestedby',
 									'acknowledgeby',
+									DB::raw("IFNULL(DATE_FORMAT(date_time_ack, '%m/%d/%Y %h:%i %p'),'') AS date_time_ack"),
 									DB::raw("IFNULL(servedqty,0) AS servedqty"),
 									DB::raw("IFNULL(last_served_by,'') AS last_served_by"),
 									DB::raw("IFNULL(last_served_date,'') AS last_served_date"))
@@ -457,6 +458,7 @@ class WBSProductionMaterialRequestController extends Controller
 								'request_date',
 								'requestedby',
 								'acknowledgeby',
+								DB::raw("IFNULL(DATE_FORMAT(date_time_ack, '%m/%d/%Y %h:%i %p'),'') AS date_time_ack"),
 								DB::raw("IFNULL(servedqty,0) AS servedqty"),
 								DB::raw("IFNULL(last_served_by,'') AS last_served_by"),
 								DB::raw("IFNULL(last_served_date,'') AS last_served_date"))
@@ -510,6 +512,7 @@ class WBSProductionMaterialRequestController extends Controller
 									'request_date',
 									'requestedby',
 									'acknowledgeby',
+									DB::raw("IFNULL(DATE_FORMAT(date_time_ack, '%m/%d/%Y %h:%i %p'),'') AS date_time_ack"),
 									DB::raw("IFNULL(servedqty,0) AS servedqty"),
 									DB::raw("IFNULL(last_served_by,'') AS last_served_by"),
 									DB::raw("IFNULL(last_served_date,'') AS last_served_date"))
@@ -571,6 +574,7 @@ class WBSProductionMaterialRequestController extends Controller
 									'request_date',
 									'requestedby',
 									'acknowledgeby',
+									DB::raw("IFNULL(DATE_FORMAT(date_time_ack, '%m/%d/%Y %h:%i %p'),'') AS date_time_ack"),
 									DB::raw("IFNULL(servedqty,0) AS servedqty"),
 									DB::raw("IFNULL(last_served_by,'') AS last_served_by"),
 									DB::raw("IFNULL(last_served_date,'') AS last_served_date"))
@@ -630,6 +634,7 @@ class WBSProductionMaterialRequestController extends Controller
 									'request_date',
 									'requestedby',
 									'acknowledgeby',
+									DB::raw("IFNULL(DATE_FORMAT(date_time_ack, '%m/%d/%Y %h:%i %p'),'') AS date_time_ack"),
 									DB::raw("IFNULL(servedqty,0) AS servedqty"),
 									DB::raw("IFNULL(last_served_by,'') AS last_served_by"),
 									DB::raw("IFNULL(last_served_date,'') AS last_served_date"))
@@ -676,12 +681,13 @@ class WBSProductionMaterialRequestController extends Controller
     	$data = [
 				'status' => 'failed',
 				'msg' => 'Acknowledging failed.'
-			];
+			];				
 
     	$update = DB::connection($this->mysql)->table('tbl_request_detail')
 		            ->where('id',$req->id)
 		            ->update([
 		                'acknowledgeby' => Auth::user()->user_id,
+		                'date_time_ack' =>  date('Y-m-d H:i:s'),
 		                'acknowledge_all' => 1
 		            ]);
 		if ($update) {
@@ -740,10 +746,10 @@ class WBSProductionMaterialRequestController extends Controller
                                 , 'lot_no'
                                 , 'remarks'
                                 , 'requestedby'
-                                , 'acknowledgeby')
+                                , 'acknowledgeby'
+                            	, DB::raw("IFNULL(DATE_FORMAT(date_time_ack, '%m/%d/%Y %h:%i %p'),'') AS date_time_ack"))
                         ->orderBy('code')
                         ->get();
-
 
         $data = [
             'date' => $date,
